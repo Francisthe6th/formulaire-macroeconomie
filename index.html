@@ -1,0 +1,1663 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formules Macroéconomie</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root { --header-h: 62px; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            background: #fff;
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+
+        /* ── HEADER ── */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: #fff;
+            border-bottom: 1px solid #e0e0e0;
+            height: var(--header-h);
+        }
+        .header-content {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 0 1.5rem;
+        }
+        .header-left h1 {
+            font-size: 1.3rem;
+            font-weight: 400;
+            letter-spacing: -0.3px;
+            white-space: nowrap;
+        }
+        .header-left .subtitle {
+            font-size: 0.78rem;
+            color: #888;
+        }
+        .search-wrap {
+            flex: 1;
+            max-width: 420px;
+            position: relative;
+        }
+        .search-wrap svg {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #aaa;
+            pointer-events: none;
+        }
+        #search-input {
+            width: 100%;
+            padding: 0.5rem 2.8rem 0.5rem 2.2rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-family: inherit;
+            background: #fafafa;
+            outline: none;
+            transition: border-color 0.2s, background 0.2s;
+        }
+        #search-input:focus { border-color: #1a1a1a; background: #fff; }
+        #search-count {
+            position: absolute;
+            right: 0.8rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.75rem;
+            color: #aaa;
+        }
+        .sidebar-toggle {
+            display: none;
+            background: none;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            padding: 0.35rem 0.7rem;
+            font-size: 0.82rem;
+            cursor: pointer;
+            color: #444;
+            white-space: nowrap;
+        }
+
+        /* ── LAYOUT ── */
+        .layout {
+            display: flex;
+        }
+
+        /* ── SIDEBAR ── */
+        .sidebar {
+            width: 255px;
+            flex-shrink: 0;
+            border-right: 1px solid #e0e0e0;
+            position: sticky;
+            top: var(--header-h);
+            height: calc(100vh - var(--header-h));
+            overflow-y: auto;
+            padding: 1.2rem 0 2rem;
+        }
+        .sidebar::-webkit-scrollbar { width: 3px; }
+        .sidebar::-webkit-scrollbar-thumb { background: #e0e0e0; border-radius: 2px; }
+
+        .sidebar-group { margin-bottom: 1.4rem; }
+        .sidebar-group-title {
+            font-size: 0.68rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #aaa;
+            padding: 0 1.1rem 0.4rem;
+        }
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.3rem 1.1rem;
+            font-size: 0.83rem;
+            color: #555;
+            cursor: pointer;
+            border-left: 2px solid transparent;
+            transition: background 0.12s, color 0.12s;
+            user-select: none;
+        }
+        .sidebar-link:hover { background: #f5f5f5; color: #1a1a1a; }
+        .sidebar-link.active {
+            color: #1a1a1a;
+            font-weight: 500;
+            border-left-color: #1a1a1a;
+            background: #f5f5f5;
+        }
+        .ch-badge {
+            font-size: 0.68rem;
+            color: #aaa;
+            background: #f0f0f0;
+            padding: 0.1rem 0.35rem;
+            border-radius: 3px;
+            flex-shrink: 0;
+            margin-left: 0.4rem;
+        }
+
+        /* ── MAIN ── */
+        .main-content { flex: 1; min-width: 0; }
+
+        /* ── TABS ── */
+        .tabs {
+            display: flex;
+            padding: 0 1.5rem;
+            gap: 2rem;
+            border-bottom: 1px solid #e0e0e0;
+            overflow-x: auto;
+            position: sticky;
+            top: var(--header-h);
+            background: #fff;
+            z-index: 90;
+        }
+        .tab-button {
+            background: none;
+            border: none;
+            padding: 0.85rem 0;
+            font-size: 0.88rem;
+            color: #777;
+            cursor: pointer;
+            position: relative;
+            white-space: nowrap;
+            transition: color 0.15s;
+        }
+        .tab-button:hover { color: #1a1a1a; }
+        .tab-button.active { color: #1a1a1a; font-weight: 500; }
+        .tab-button.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px; left: 0; right: 0;
+            height: 2px;
+            background: #1a1a1a;
+        }
+
+        /* ── CONTENT ── */
+        .content { padding: 2rem 2rem 4rem; }
+        .chapter { display: none; }
+        .chapter.active { display: block; }
+
+        /* ── FORMULA SECTIONS ── */
+        .formula-section {
+            margin-bottom: 2.5rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #f0f0f0;
+            scroll-margin-top: calc(var(--header-h) + 50px);
+            transition: background 0.4s;
+            border-radius: 4px;
+            padding: 1rem;
+            margin-left: -1rem;
+            margin-right: -1rem;
+        }
+        .formula-section:last-child { border-bottom: none; }
+
+        .concept-tag {
+            display: inline-block;
+            font-size: 0.68rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: #888;
+            background: #f0f0f0;
+            padding: 0.12rem 0.45rem;
+            border-radius: 3px;
+            margin-bottom: 0.5rem;
+        }
+        .formula-section h2 {
+            font-size: 1.25rem;
+            font-weight: 400;
+            margin-bottom: 0.3rem;
+        }
+        .formula-section h3 {
+            font-size: 0.98rem;
+            font-weight: 500;
+            margin: 1.2rem 0 0.7rem;
+        }
+        .formula-section h4 {
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin: 1rem 0 0.5rem;
+            color: #333;
+        }
+        .formula-block {
+            background: #f5f5f5;
+            padding: 1.1rem 1.4rem;
+            margin: 0.8rem 0;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        .formula-block .katex-display { margin: 0; }
+        .description {
+            font-size: 0.87rem;
+            color: #555;
+            margin: 0.6rem 0;
+            line-height: 1.5;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0.8rem 0;
+            font-size: 0.88rem;
+        }
+        th, td { padding: 0.65rem 0.9rem; text-align: left; border-bottom: 1px solid #e8e8e8; }
+        th { background: #f5f5f5; font-weight: 500; }
+        tr:hover { background: #fafafa; }
+        blockquote {
+            border-left: 3px solid #e0e0e0;
+            padding-left: 1.1rem;
+            margin: 0.8rem 0;
+            color: #666;
+            font-style: italic;
+            font-size: 0.88rem;
+        }
+        ul, ol { margin: 0.7rem 0 0.7rem 1.6rem; }
+        li { margin: 0.35rem 0; }
+
+        /* ── SEARCH RESULTS ── */
+        #search-results-view { display: none; }
+        #search-results-view.active { display: block; }
+
+        .search-chapter-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.9px;
+            color: #fff;
+            background: #1a1a1a;
+            padding: 0.25rem 0.7rem;
+            border-radius: 3px;
+            display: inline-block;
+            margin: 1.5rem 0 0.5rem;
+        }
+        .search-chapter-label:first-child { margin-top: 0; }
+        .search-no-results {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #aaa;
+            font-size: 0.95rem;
+        }
+
+        /* highlight flash */
+        .flash { background: #fffbf0 !important; }
+
+        /* ── MOBILE ── */
+        @media (max-width: 860px) {
+            .sidebar {
+                position: fixed;
+                top: 0; left: 0;
+                height: 100vh;
+                width: 270px;
+                z-index: 300;
+                background: #fff;
+                box-shadow: 4px 0 24px rgba(0,0,0,0.12);
+                transform: translateX(-100%);
+                transition: transform 0.25s;
+            }
+            .sidebar.open { transform: translateX(0); }
+            .sidebar-toggle { display: block; }
+            .header-left h1 { font-size: 1.1rem; }
+            .header-left .subtitle { display: none; }
+            .content { padding: 1.5rem 1rem 3rem; }
+        }
+
+        .katex { font-size: 1em; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-content">
+        <button class="sidebar-toggle" onclick="toggleSidebar()">☰ Index</button>
+        <div class="header-left">
+            <h1>Formules Macroéconomie</h1>
+            <div class="subtitle">BA 2 · Économie II</div>
+        </div>
+        <div class="search-wrap">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="search" id="search-input" placeholder="Rechercher une formule, variable…" autocomplete="off" oninput="handleSearch(this.value)">
+            <span id="search-count"></span>
+        </div>
+    </div>
+</header>
+
+<div class="layout">
+
+    <!-- ═══════════ SIDEBAR ═══════════ -->
+    <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-group">
+            <div class="sidebar-group-title">PIB &amp; Comptabilité</div>
+            <div class="sidebar-link" onclick="goTo('ch1','pib-habitant')">PIB par habitant <span class="ch-badge">Ch1</span></div>
+            <div class="sidebar-link" onclick="goTo('ch2','pib-approches')">Approches du PIB <span class="ch-badge">Ch2</span></div>
+            <div class="sidebar-link" onclick="goTo('ch2','pib-nominal-reel')">PIB nominal / réel <span class="ch-badge">Ch2</span></div>
+            <div class="sidebar-link" onclick="goTo('ch3','pib-comptabilite')">PIB – économie fermée <span class="ch-badge">Ch3</span></div>
+        </div>
+
+        <div class="sidebar-group">
+            <div class="sidebar-group-title">Croissance &amp; Production</div>
+            <div class="sidebar-link" onclick="goTo('ch1','taux-croissance-ch1')">Taux de croissance <span class="ch-badge">Ch1</span></div>
+            <div class="sidebar-link" onclick="goTo('ch2','taux-croissance-ch2')">Taux de croissance réel <span class="ch-badge">Ch2</span></div>
+            <div class="sidebar-link" onclick="goTo('ch3','doublement')">Règle du doublement <span class="ch-badge">Ch3</span></div>
+            <div class="sidebar-link" onclick="goTo('ch3','fonction-production')">Fonction de production <span class="ch-badge">Ch3</span></div>
+            <div class="sidebar-link" onclick="goTo('ch3','rendements-echelle')">Rendements d'échelle <span class="ch-badge">Ch3</span></div>
+            <div class="sidebar-link" onclick="goTo('ch3','rendements-factoriels')">Rendements factoriels <span class="ch-badge">Ch3</span></div>
+            <div class="sidebar-link" onclick="goTo('ch3','production-travailleur')">Production / travailleur <span class="ch-badge">Ch3</span></div>
+            <div class="sidebar-link" onclick="goTo('ch3','solow-production')">F. production Cobb-Douglas <span class="ch-badge">Ch3</span></div>
+            <div class="sidebar-link" onclick="goTo('ch3','solow-rendements')">Rendements d'échelle (Solow) <span class="ch-badge">Ch3</span></div>
+            <div class="sidebar-link" onclick="goTo('ch3','solow-par-travailleur')">Production / travailleur (Solow) <span class="ch-badge">Ch3</span></div>
+            <div class="sidebar-link" onclick="goTo('ch3','solow-croissance')">Taux de croissance (Solow) <span class="ch-badge">Ch3</span></div>
+        </div>
+
+        <div class="sidebar-group">
+            <div class="sidebar-group-title">Chômage</div>
+            <div class="sidebar-link" onclick="goTo('ch1','taux-chomage-ch1')">Taux de chômage <span class="ch-badge">Ch1</span></div>
+            <div class="sidebar-link" onclick="goTo('ch2','population-active')">Population active <span class="ch-badge">Ch2</span></div>
+            <div class="sidebar-link" onclick="goTo('ch2','taux-chomage-ch2')">Taux de chômage <span class="ch-badge">Ch2</span></div>
+            <div class="sidebar-link" onclick="goTo('ch2','taux-participation')">Taux de participation <span class="ch-badge">Ch2</span></div>
+            <div class="sidebar-link" onclick="goTo('ch2','loi-okun')">Loi d'Okun <span class="ch-badge">Ch2</span></div>
+        </div>
+
+        <div class="sidebar-group">
+            <div class="sidebar-group-title">Inflation &amp; Prix</div>
+            <div class="sidebar-link" onclick="goTo('ch1','taux-inflation-ch1')">Taux d'inflation <span class="ch-badge">Ch1</span></div>
+            <div class="sidebar-link" onclick="goTo('ch2','deflateur')">Déflateur du PIB <span class="ch-badge">Ch2</span></div>
+            <div class="sidebar-link" onclick="goTo('ch2','taux-inflation-ch2')">Taux d'inflation <span class="ch-badge">Ch2</span></div>
+            <div class="sidebar-link" onclick="goTo('ch6','equation-fisher')">Équation de Fisher <span class="ch-badge">Ch6</span></div>
+        </div>
+
+        <div class="sidebar-group">
+            <div class="sidebar-group-title">PPA &amp; Taux de change</div>
+            <div class="sidebar-link" onclick="goTo('ch1','ppa-correction')">Correction PPA <span class="ch-badge">Ch1</span></div>
+            <div class="sidebar-link" onclick="goTo('ch3','ppa-ch3')">PPA – formule exacte <span class="ch-badge">Ch3</span></div>
+            <div class="sidebar-link" onclick="goTo('ch1','taux-change-mce')">Taux de change MCE II <span class="ch-badge">Ch1</span></div>
+        </div>
+
+        <div class="sidebar-group">
+            <div class="sidebar-group-title">Finances publiques</div>
+            <div class="sidebar-link" onclick="goTo('ch1','deficit-budgetaire')">Déficit budgétaire <span class="ch-badge">Ch1</span></div>
+            <div class="sidebar-link" onclick="goTo('ch1','dette-publique')">Dette publique <span class="ch-badge">Ch1</span></div>
+            <div class="sidebar-link" onclick="goTo('ch1','maastricht')">Critères de Maastricht <span class="ch-badge">Ch1</span></div>
+            <div class="sidebar-link" onclick="goTo('ch6','solde-budgetaire')">Solde budgétaire <span class="ch-badge">Ch6</span></div>
+        </div>
+
+        <div class="sidebar-group">
+            <div class="sidebar-group-title">Demande agrégée</div>
+            <div class="sidebar-link" onclick="goTo('ch4','revenu-disponible')">Revenu disponible <span class="ch-badge">Ch4</span></div>
+            <div class="sidebar-link" onclick="goTo('ch4','fonctions-comportement')">Fonctions de comportement <span class="ch-badge">Ch4</span></div>
+            <div class="sidebar-link" onclick="goTo('ch4','demande-agregee')">Demande agrégée <span class="ch-badge">Ch4</span></div>
+            <div class="sidebar-link" onclick="goTo('ch4','production-equilibre')">Production d'équilibre <span class="ch-badge">Ch4</span></div>
+            <div class="sidebar-link" onclick="goTo('ch6','demande-finale-is')">Demande finale IS <span class="ch-badge">Ch6</span></div>
+        </div>
+
+        <div class="sidebar-group">
+            <div class="sidebar-group-title">Multiplicateur &amp; IS</div>
+            <div class="sidebar-link" onclick="goTo('ch4','multiplicateur')">Multiplicateur keynésien <span class="ch-badge">Ch4</span></div>
+            <div class="sidebar-link" onclick="goTo('ch4','paradoxe-epargne')">Paradoxe de l'épargne <span class="ch-badge">Ch4</span></div>
+            <div class="sidebar-link" onclick="goTo('ch4','epargne-is')">Épargne &amp; équation IS <span class="ch-badge">Ch4</span></div>
+            <div class="sidebar-link" onclick="goTo('ch6','modele-islm')">Modèle IS/LM complet <span class="ch-badge">Ch6</span></div>
+            <div class="sidebar-link" onclick="goTo('ch7','is-taxe-proportionnelle')">Taxe proportionnelle <span class="ch-badge">Ch7</span></div>
+        </div>
+
+        <div class="sidebar-group">
+            <div class="sidebar-group-title">Marché du travail</div>
+            <div class="sidebar-link" onclick="goTo('ch7','ws-ps-definitions')">Définitions (L, N, U) <span class="ch-badge">Ch7</span></div>
+            <div class="sidebar-link" onclick="goTo('ch7','ws-relation')">Relation WS <span class="ch-badge">Ch7</span></div>
+            <div class="sidebar-link" onclick="goTo('ch7','ps-relation')">Relation PS <span class="ch-badge">Ch7</span></div>
+            <div class="sidebar-link" onclick="goTo('ch7','ws-ps-equilibre')">Équilibre WS/PS <span class="ch-badge">Ch7</span></div>
+            <div class="sidebar-link" onclick="goTo('ch7','emploi-structurel')">Emploi &amp; production structurels <span class="ch-badge">Ch7</span></div>
+            <div class="sidebar-link" onclick="goTo('ch7','equations-cles-ch7')">Résumé équations WS/PS <span class="ch-badge">Ch7</span></div>
+        </div>
+
+        <div class="sidebar-group">
+            <div class="sidebar-group-title">Monnaie &amp; Banques</div>
+            <div class="sidebar-link" onclick="goTo('ch5','obligations')">Obligations &amp; taux <span class="ch-badge">Ch5</span></div>
+            <div class="sidebar-link" onclick="goTo('ch5','demande-monnaie')">Demande de monnaie <span class="ch-badge">Ch5</span></div>
+            <div class="sidebar-link" onclick="goTo('ch5','li-forme-fonctionnelle')">$L(i)$ — forme &amp; limites <span class="ch-badge">Ch5</span></div>
+            <div class="sidebar-link" onclick="goTo('ch5','equilibre-i-etoile')">Résolution $i^*$ <span class="ch-badge">Ch5</span></div>
+            <div class="sidebar-link" onclick="goTo('ch5','modele-banques')">Modèle avec banques <span class="ch-badge">Ch5</span></div>
+            <div class="sidebar-link" onclick="goTo('ch5','multiplicateur-monetaire')">Multiplicateur monétaire <span class="ch-badge">Ch5</span></div>
+            <div class="sidebar-link" onclick="goTo('ch5','open-market')">Open market &amp; bilan BC <span class="ch-badge">Ch5</span></div>
+            <div class="sidebar-link" onclick="goTo('ch5','trappe-liquidites')">Trappe à liquidités <span class="ch-badge">Ch5</span></div>
+            <div class="sidebar-link" onclick="goTo('ch5','theta-politique')">$\theta$ — instrument BC <span class="ch-badge">Ch5</span></div>
+            <div class="sidebar-link" onclick="goTo('ch5','bitcoin')">Bitcoin <span class="ch-badge">Ch5</span></div>
+            <div class="sidebar-link" onclick="goTo('ch6','regle-lm')">Règle LM <span class="ch-badge">Ch6</span></div>
+        </div>
+
+        <div class="sidebar-group">
+            <div class="sidebar-group-title">Courbe de Phillips</div>
+            <div class="sidebar-link" onclick="goTo('ch8','phillips-derivation')">Dérivation Phillips <span class="ch-badge">Ch8</span></div>
+            <div class="sidebar-link" onclick="goTo('ch8','phillips-ancrees')">Anticipations ancrées <span class="ch-badge">Ch8</span></div>
+            <div class="sidebar-link" onclick="goTo('ch8','phillips-adaptatives')">Friedman-Phelps <span class="ch-badge">Ch8</span></div>
+            <div class="sidebar-link" onclick="goTo('ch8','nairu')">NAIRU &amp; $u_n$ <span class="ch-badge">Ch8</span></div>
+            <div class="sidebar-link" onclick="goTo('ch8','nairu-determinants')">Déterminants de $u_n$ <span class="ch-badge">Ch8</span></div>
+            <div class="sidebar-link" onclick="goTo('ch8','phillips-empirique')">Estimation empirique <span class="ch-badge">Ch8</span></div>
+        </div>
+
+    </aside>
+
+    <!-- ═══════════ MAIN ═══════════ -->
+    <div class="main-content">
+
+        <div class="tabs" id="tabs-bar">
+            <button class="tab-button active" onclick="switchTab('ch1',this)">Chapitre 1</button>
+            <button class="tab-button" onclick="switchTab('ch2',this)">Chapitre 2</button>
+            <button class="tab-button" onclick="switchTab('ch3',this)">Chapitre 3</button>
+            <button class="tab-button" onclick="switchTab('ch4',this)">Chapitre 4</button>
+            <button class="tab-button" onclick="switchTab('ch5',this)">Chapitre 5</button>
+            <button class="tab-button" onclick="switchTab('ch6',this)">Chapitre 6</button>
+            <button class="tab-button" onclick="switchTab('ch7',this)">Chapitre 7</button>
+            <button class="tab-button" onclick="switchTab('ch8',this)">Chapitre 8</button>
+        </div>
+
+        <div class="content">
+
+            <!-- ── SEARCH RESULTS ── -->
+            <div id="search-results-view">
+                <div id="search-results-container"></div>
+                <div id="search-no-results" class="search-no-results" style="display:none">Aucune formule trouvée.</div>
+            </div>
+
+            <!-- ════════════════════════════════
+                 CHAPITRE 1
+            ════════════════════════════════ -->
+            <div id="ch1" class="chapter active">
+
+                <div class="formula-section" id="pib-habitant" data-title="PIB par habitant" data-chapter="Chapitre 1" data-concept="PIB">
+                    <span class="concept-tag">PIB</span>
+                    <h2>PIB par habitant</h2>
+                    <div class="formula-block">$$\text{PIB/habitant} = \frac{\text{PIB}}{\text{Population}}$$</div>
+                    <div class="description"><strong>Interprétation :</strong> mesure du niveau de vie moyen d'un pays.<br><strong>Exemple (US, 2025) :</strong> $91\,796 = \frac{31.44 \times 10^{12}}{342.50 \times 10^6}$</div>
+                </div>
+
+                <div class="formula-section" id="taux-croissance-ch1" data-title="Taux de croissance du PIB" data-chapter="Chapitre 1" data-concept="Croissance">
+                    <span class="concept-tag">Croissance</span>
+                    <h2>Taux de croissance du PIB</h2>
+                    <div class="formula-block">$$g = \frac{\text{PIB}_t - \text{PIB}_{t-1}}{\text{PIB}_{t-1}} \times 100$$</div>
+                    <div class="description"><strong>Interprétation :</strong> variation annuelle en % du volume de production.
+                        <ul>
+                            <li>$g > 0$ : expansion économique</li>
+                            <li>$g < 0$ : récession</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="formula-section" id="taux-chomage-ch1" data-title="Taux de chômage" data-chapter="Chapitre 1" data-concept="Chômage">
+                    <span class="concept-tag">Chômage</span>
+                    <h2>Taux de chômage</h2>
+                    <div class="formula-block">$$u = \frac{\text{Chômeurs}}{\text{Population active}} \times 100$$</div>
+                    <div class="description">Population active = personnes en emploi + personnes sans emploi qui en cherchent une.</div>
+                </div>
+
+                <div class="formula-section" id="taux-inflation-ch1" data-title="Taux d'inflation" data-chapter="Chapitre 1" data-concept="Inflation">
+                    <span class="concept-tag">Inflation</span>
+                    <h2>Taux d'inflation</h2>
+                    <div class="formula-block">$$\pi = \frac{P_t - P_{t-1}}{P_{t-1}} \times 100$$</div>
+                    <div class="description">Où $P_t$ est le niveau général des prix à la période $t$.
+                        <ul>
+                            <li>$\pi > 0$ : hausse des prix (inflation)</li>
+                            <li>$\pi < 0$ : baisse des prix (déflation)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="formula-section" id="ppa-correction" data-title="Correction PPA Parité de Pouvoir d'Achat" data-chapter="Chapitre 1" data-concept="PPA">
+                    <span class="concept-tag">PPA</span>
+                    <h2>Correction par la Parité de Pouvoir d'Achat (PPA)</h2>
+                    <div class="formula-block">$$\text{PIB/hab. réel} = \frac{\text{PIB nominal}}{\text{Population}} \times \frac{1}{\text{Niveau des prix relatif}}$$</div>
+                    <div class="description"><strong>Intuition :</strong> 1 dollar n'achète pas la même quantité de biens en Chine et aux États-Unis. La PPA corrige cet écart pour rendre les comparaisons de niveaux de vie entre pays valides.<br><br><strong>Exemple (Chine, 2025) :</strong>
+                        <ul>
+                            <li>Au taux de change du marché : PIB/hab. chinois = <strong>15%</strong> du niveau américain</li>
+                            <li>Corrigé en PPA : PIB/hab. chinois = <strong>34%</strong> du niveau américain</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="formula-section" id="deficit-budgetaire" data-title="Déficit budgétaire" data-chapter="Chapitre 1" data-concept="Finances publiques">
+                    <span class="concept-tag">Finances publiques</span>
+                    <h2>Déficit budgétaire</h2>
+                    <div class="formula-block">$$\text{Déficit} = \text{Dépenses publiques} - \text{Recettes fiscales}$$</div>
+                    <div class="formula-block">$$\text{Déficit en \% du PIB} = \frac{\text{Dépenses} - \text{Recettes}}{\text{PIB}} \times 100$$</div>
+                    <div class="description"><strong>Critère de Maastricht :</strong> déficit ≤ 3% du PIB.<br><strong>Mécanisme contra-cyclique :</strong> pendant une récession, les recettes ↓ et les dépenses ↑ – le déficit se creuse automatiquement (stabilisateurs automatiques).</div>
+                </div>
+
+                <div class="formula-section" id="dette-publique" data-title="Dette publique" data-chapter="Chapitre 1" data-concept="Finances publiques">
+                    <span class="concept-tag">Finances publiques</span>
+                    <h2>Dette publique</h2>
+                    <div class="formula-block">$$\text{Dette}_t = \text{Dette}_{t-1} + \text{Déficit}_t$$</div>
+                    <div class="description">La dette est le <strong>stock</strong> cumulé des déficits passés.<br><strong>Critère de Maastricht :</strong> dette ≤ 60% du PIB.<br><strong>Post-Covid (économies avancées) :</strong> dette ≈ 120% du PIB.</div>
+                </div>
+
+                <div class="formula-section" id="taux-change-mce" data-title="Taux de change MCE II" data-chapter="Chapitre 1" data-concept="Taux de change">
+                    <span class="concept-tag">Taux de change</span>
+                    <h2>Taux de change et MCE II</h2>
+                    <div class="formula-block">$$\text{Cours pivot} \pm 15\%$$</div>
+                    <div class="description">Le MCE II impose que le taux de change d'un pays candidat à l'euro fluctue dans une bande de ±15%.<br><strong>Cas croate :</strong> la kuna a fluctué dans une bande de ±1% – bien en dessous de la limite autorisée.</div>
+                </div>
+
+                <div class="formula-section" id="maastricht" data-title="Critères de Maastricht seuils clés" data-chapter="Chapitre 1" data-concept="Finances publiques">
+                    <span class="concept-tag">Finances publiques</span>
+                    <h2>Récapitulatif des seuils clés</h2>
+                    <table>
+                        <thead><tr><th>Indicateur</th><th>Critère de Maastricht</th></tr></thead>
+                        <tbody>
+                            <tr><td>Inflation</td><td>Proche des 3 états membres les moins inflationnistes</td></tr>
+                            <tr><td>Déficit public</td><td>≤ 3% du PIB</td></tr>
+                            <tr><td>Dette publique</td><td>≤ 60% du PIB</td></tr>
+                            <tr><td>Taux de change (MCE II)</td><td>±15% autour du cours pivot pendant 2 ans</td></tr>
+                            <tr><td>Taux d'intérêt long terme</td><td>Proche de la moyenne des pays les plus stables</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div><!-- /ch1 -->
+
+            <!-- ════════════════════════════════
+                 CHAPITRE 2
+            ════════════════════════════════ -->
+            <div id="ch2" class="chapter">
+
+                <div class="formula-section" id="pib-approches" data-title="Le PIB approches production dépense revenus" data-chapter="Chapitre 2" data-concept="PIB">
+                    <span class="concept-tag">PIB</span>
+                    <h2>Le PIB</h2>
+                    <h3>Approche production</h3>
+                    <div class="formula-block">$$\text{PIB} = \sum_{i} VA_i = \sum_{i} (\text{Production}_i - \text{Consommations intermédiaires}_i)$$</div>
+                    <h3>Approche dépense</h3>
+                    <div class="formula-block">$$\text{PIB} = C + I + G + X - M + \Delta S$$</div>
+                    <table>
+                        <thead><tr><th>Variable</th><th>Définition</th></tr></thead>
+                        <tbody>
+                            <tr><td>$C$</td><td>Consommation des ménages</td></tr>
+                            <tr><td>$I$</td><td>Investissement privé et public</td></tr>
+                            <tr><td>$G$</td><td>Consommation finale de l'État</td></tr>
+                            <tr><td>$X$</td><td>Exportations</td></tr>
+                            <tr><td>$M$</td><td>Importations</td></tr>
+                            <tr><td>$\Delta S$</td><td>Variation des stocks</td></tr>
+                        </tbody>
+                    </table>
+                    <h3>Exportations nettes (balance commerciale)</h3>
+                    <div class="formula-block">$$\text{Exportations nettes} = X - M$$</div>
+                    <h3>Approche revenus</h3>
+                    <div class="formula-block">$$\text{PIB} = \sum \text{Salaires} + \sum \text{Profits} + \sum \text{Impôts indirects nets}$$</div>
+                </div>
+
+                <div class="formula-section" id="pib-nominal-reel" data-title="PIB nominal PIB réel prix courants constants" data-chapter="Chapitre 2" data-concept="PIB">
+                    <span class="concept-tag">PIB</span>
+                    <h2>PIB nominal et PIB réel</h2>
+                    <h3>PIB nominal (prix courants)</h3>
+                    <div class="formula-block">$$\text{PIB}_{nom,t} = \sum_{i} p_{i,t} \cdot q_{i,t}$$</div>
+                    <h3>PIB réel (prix constants)</h3>
+                    <div class="formula-block">$$\text{PIB}_{réel,t} = \sum_{i} p_{i,t_0} \cdot q_{i,t}$$</div>
+                    <blockquote>
+                        $p_{i,t}$ = prix du bien $i$ à l'année $t$<br>
+                        $q_{i,t}$ = quantité du bien $i$ à l'année $t$<br>
+                        $t_0$ = année de référence
+                    </blockquote>
+                </div>
+
+                <div class="formula-section" id="taux-croissance-ch2" data-title="Taux de croissance du PIB réel expansion récession dépression" data-chapter="Chapitre 2" data-concept="Croissance">
+                    <span class="concept-tag">Croissance</span>
+                    <h2>Taux de croissance du PIB réel</h2>
+                    <div class="formula-block">$$g_t = \frac{Y_t - Y_{t-1}}{Y_{t-1}}$$</div>
+                    <table>
+                        <thead><tr><th>Valeur de $g_t$</th><th>Situation</th></tr></thead>
+                        <tbody>
+                            <tr><td>$g_t > 0$</td><td>Expansion</td></tr>
+                            <tr><td>$g_t < 0$ (légère)</td><td>Récession</td></tr>
+                            <tr><td>$g_t \ll 0$ (prolongée)</td><td>Dépression</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="formula-section" id="deflateur" data-title="Déflateur du PIB Paasche indice prix" data-chapter="Chapitre 2" data-concept="Inflation">
+                    <span class="concept-tag">Inflation</span>
+                    <h2>Le déflateur du PIB</h2>
+                    <div class="formula-block">$$P_t = \frac{\text{PIB}_{nom,t}}{\text{PIB}_{réel,t}} = \frac{\sum_{i} p_{i,t} \cdot q_{i,t}}{\sum_{i} p_{i,t_0} \cdot q_{i,t}}$$</div>
+                    <blockquote>
+                        Le déflateur vaut 1 à l'année de référence $t_0$.<br>
+                        C'est un indice de prix de type <strong>Paasche</strong>.
+                    </blockquote>
+                    <h3>Taux d'inflation via le déflateur</h3>
+                    <div class="formula-block">$$\pi_t = \frac{P_t - P_{t-1}}{P_{t-1}}$$</div>
+                </div>
+
+                <div class="formula-section" id="population-active" data-title="Population active emploi chômeurs" data-chapter="Chapitre 2" data-concept="Chômage">
+                    <span class="concept-tag">Chômage</span>
+                    <h2>Le chômage</h2>
+                    <h3>Population active</h3>
+                    <div class="formula-block">$$L = N + U$$</div>
+                    <blockquote>
+                        $L$ = population active<br>
+                        $N$ = personnes en emploi<br>
+                        $U$ = chômeurs
+                    </blockquote>
+                </div>
+
+                <div class="formula-section" id="taux-chomage-ch2" data-title="Taux de chômage" data-chapter="Chapitre 2" data-concept="Chômage">
+                    <span class="concept-tag">Chômage</span>
+                    <h3>Taux de chômage</h3>
+                    <div class="formula-block">$$u = \frac{U}{L}$$</div>
+                </div>
+
+                <div class="formula-section" id="taux-participation" data-title="Taux de participation" data-chapter="Chapitre 2" data-concept="Chômage">
+                    <span class="concept-tag">Chômage</span>
+                    <h3>Taux de participation</h3>
+                    <div class="formula-block">$$\tau_{participation} = \frac{L}{\text{Population en âge de travailler}}$$</div>
+                </div>
+
+                <div class="formula-section" id="loi-okun" data-title="Loi d'Okun variation taux chômage croissance" data-chapter="Chapitre 2" data-concept="Chômage">
+                    <span class="concept-tag">Chômage</span>
+                    <h2>Variation du taux de chômage (Loi d'Okun)</h2>
+                    <div class="formula-block">$$\Delta u = u_t - u_{t-1}$$</div>
+                    <blockquote>
+                        <strong>Loi d'Okun :</strong> relation empirique négative entre $\Delta u$ et $g_t$<br>
+                        Si $g_t \uparrow$ alors $\Delta u \downarrow$ (le chômage baisse)<br>
+                        Si $g_t \downarrow$ alors $\Delta u \uparrow$ (le chômage monte)
+                    </blockquote>
+                </div>
+
+                <div class="formula-section" id="taux-inflation-ch2" data-title="Taux d'inflation IPC indice des prix" data-chapter="Chapitre 2" data-concept="Inflation">
+                    <span class="concept-tag">Inflation</span>
+                    <h2>L'inflation</h2>
+                    <h3>Taux d'inflation (formule générale)</h3>
+                    <div class="formula-block">$$\pi_t = \frac{P_t - P_{t-1}}{P_{t-1}}$$</div>
+                    <blockquote>
+                        $P_t$ = niveau général des prix à l'année $t$<br>
+                        Mesuré par l'<strong>IPC</strong> ou le <strong>déflateur du PIB</strong>
+                    </blockquote>
+                </div>
+
+                <div class="formula-section" id="synthese-ch2" data-title="Relations clés Okun Phillips stagflation" data-chapter="Chapitre 2" data-concept="Synthèse">
+                    <span class="concept-tag">Synthèse</span>
+                    <h2>Récapitulatif des relations clés</h2>
+                    <table>
+                        <thead><tr><th>Relation</th><th>Sens</th></tr></thead>
+                        <tbody>
+                            <tr><td>PIB ↑</td><td>Chômage ↓ (Loi d'Okun)</td></tr>
+                            <tr><td>Chômage ↓</td><td>Inflation ↑ (Courbe de Phillips)</td></tr>
+                            <tr><td>Choc d'offre négatif</td><td>PIB ↓ <strong>et</strong> Inflation ↑ (Stagflation)</td></tr>
+                            <tr><td>PIB nominal / PIB réel</td><td>Déflateur (mesure de l'inflation)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div><!-- /ch2 -->
+
+            <!-- ════════════════════════════════
+                 CHAPITRE 3
+            ════════════════════════════════ -->
+            <div id="ch3" class="chapter">
+
+                <div class="formula-section" id="pib-comptabilite" data-title="PIB comptabilité nationale économie fermée" data-chapter="Chapitre 3" data-concept="PIB">
+                    <span class="concept-tag">PIB</span>
+                    <h2>PIB et comptabilité nationale</h2>
+                    <div class="formula-block">$$Y = C + I + G + X - M$$</div>
+                    <blockquote>
+                        Économie fermée sans État (simplification du cours) :<br>
+                        $$Y = C + I$$
+                    </blockquote>
+                </div>
+
+                <div class="formula-section" id="ppa-ch3" data-title="PPA Parité de Pouvoir d'Achat panier suisse france conversion" data-chapter="Chapitre 3" data-concept="PPA">
+                    <span class="concept-tag">PPA</span>
+                    <h2>Parité de Pouvoir d'Achat (PPA)</h2>
+                    <div class="formula-block">$$PPA = \frac{\sum_i p_i^{CH} \cdot q_i^{CH}}{\sum_i p_i^{F} \cdot q_i^{CH}}$$</div>
+                    <blockquote>
+                        Rapport entre le prix du panier suisse acheté en Suisse (en CHF) et le prix du même panier acheté en France (en euros).
+                    </blockquote>
+                    <h3>Conversion du PIB/hab via la PPA</h3>
+                    <div class="formula-block">$$\text{PIB/hab en euros} = \frac{\text{PIB/hab en CHF}}{PPA}$$</div>
+                </div>
+
+                <div class="formula-section" id="doublement" data-title="Intérêts composés règle du doublement 70" data-chapter="Chapitre 3" data-concept="Croissance">
+                    <span class="concept-tag">Croissance</span>
+                    <h2>Intérêts composés (règle du doublement)</h2>
+                    <div class="formula-block">$$\left(1 + g\right)^t = 2$$</div>
+                    <div class="formula-block">$$t = \frac{\ln(2)}{\ln(1+g)} \approx \frac{70}{g \times 100}$$</div>
+                    <blockquote>
+                        Exemples du cours :
+                        <ul>
+                            <li>$g = 4.7\%$ → doublement en <strong>~15 ans</strong> : $[1.047]^{15} \approx 2$</li>
+                            <li>$g = 2.0\%$ → doublement en <strong>~35 ans</strong> : $[1.02]^{35} \approx 2$</li>
+                        </ul>
+                    </blockquote>
+                </div>
+
+                <div class="formula-section" id="fonction-production" data-title="Fonction de production agrégée capital travail output" data-chapter="Chapitre 3" data-concept="Production">
+                    <span class="concept-tag">Production</span>
+                    <h2>Fonction de production agrégée</h2>
+                    <div class="formula-block">$$Y = F(K, N)$$</div>
+                    <table>
+                        <thead><tr><th>Variable</th><th>Définition</th></tr></thead>
+                        <tbody>
+                            <tr><td>$Y$</td><td>Production totale (output)</td></tr>
+                            <tr><td>$K$</td><td>Stock de capital (machines, bâtiments)</td></tr>
+                            <tr><td>$N$</td><td>Travail (nombre de travailleurs)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="formula-section" id="rendements-echelle" data-title="Rendements d'échelle constants croissants décroissants Solow" data-chapter="Chapitre 3" data-concept="Production">
+                    <span class="concept-tag">Production</span>
+                    <h2>Rendements d'échelle</h2>
+                    <div class="formula-block">$$F(\lambda K, \lambda N) = \lambda^\beta \cdot Y$$</div>
+                    <table>
+                        <thead><tr><th>Valeur de $\beta$</th><th>Type de rendements</th></tr></thead>
+                        <tbody>
+                            <tr><td>$\beta = 1$</td><td>Constants – <strong>hypothèse de Solow</strong></td></tr>
+                            <tr><td>$\beta < 1$</td><td>Décroissants</td></tr>
+                            <tr><td>$\beta > 1$</td><td>Croissants</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="formula-section" id="rendements-factoriels" data-title="Rendements factoriels décroissants MPN MPK productivité marginale" data-chapter="Chapitre 3" data-concept="Production">
+                    <span class="concept-tag">Production</span>
+                    <h2>Rendements factoriels décroissants</h2>
+                    <h3>Productivité marginale du travail (MPN)</h3>
+                    <div class="formula-block">$$MPN = \frac{\partial Y}{\partial N} > 0 \quad \text{et} \quad \frac{\partial^2 Y}{\partial N^2} < 0$$</div>
+                    <h3>Productivité marginale du capital (MPK)</h3>
+                    <div class="formula-block">$$MPK = \frac{\partial Y}{\partial K} > 0 \quad \text{et} \quad \frac{\partial^2 Y}{\partial K^2} < 0$$</div>
+                    <blockquote>Chaque unité supplémentaire de K (ou N), l'autre facteur étant fixe, augmente Y de moins en moins.</blockquote>
+                </div>
+
+                <div class="formula-section" id="production-travailleur" data-title="Fonction de production par travailleur capital par travailleur" data-chapter="Chapitre 3" data-concept="Production">
+                    <span class="concept-tag">Production</span>
+                    <h2>Fonction de production par travailleur</h2>
+                    <div class="description">En posant $\lambda = \frac{1}{N}$ dans $F(\lambda K, \lambda N) = \lambda Y$ :</div>
+                    <div class="formula-block">$$\frac{Y}{N} = F\left(\frac{K}{N}, 1\right)$$</div>
+                    <blockquote>La production <strong>par travailleur</strong> dépend uniquement du capital <strong>par travailleur</strong>.</blockquote>
+                    <div class="description">
+                        $F(K,N)$ vérifie :
+                        <ol>
+                            <li>$F(\lambda K, \lambda N) = \lambda Y$ – rendements d'échelle <strong>constants</strong></li>
+                            <li>$MPN$ décroissante – rendements <strong>factoriels décroissants</strong> du travail</li>
+                            <li>$MPK$ décroissante – rendements <strong>factoriels décroissants</strong> du capital</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="formula-section" id="solow-production" data-title="Fonction de production Cobb-Douglas Solow K alpha N beta" data-chapter="Chapitre 3" data-concept="Production">
+                    <span class="concept-tag">Production · Solow</span>
+                    <h2>Fonction de production Cobb-Douglas (Solow)</h2>
+                    <div class="formula-block">$$Y = F(K, N) = K^\alpha N^\beta$$</div>
+                    <table>
+                        <thead><tr><th>Variable</th><th>Définition</th></tr></thead>
+                        <tbody>
+                            <tr><td>$Y$</td><td>Production (PIB)</td></tr>
+                            <tr><td>$K$</td><td>Capital</td></tr>
+                            <tr><td>$N$</td><td>Travail</td></tr>
+                            <tr><td>$\alpha, \beta > 0$</td><td>Paramètres d'élasticité</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="formula-section" id="solow-rendements" data-title="Rendements d'échelle Solow alpha beta constants croissants décroissants" data-chapter="Chapitre 3" data-concept="Production">
+                    <span class="concept-tag">Production · Solow</span>
+                    <h2>Rendements d'échelle (Solow)</h2>
+                    <div class="formula-block">$$F(\lambda K, \lambda N) = (\lambda K)^\alpha (\lambda N)^\beta = \lambda^{\alpha+\beta} \cdot Y$$</div>
+                    <table>
+                        <thead><tr><th>Condition</th><th>Type de rendements</th></tr></thead>
+                        <tbody>
+                            <tr><td>$\alpha + \beta = 1$</td><td>Constants</td></tr>
+                            <tr><td>$\alpha + \beta < 1$</td><td>Décroissants</td></tr>
+                            <tr><td>$\alpha + \beta > 1$</td><td>Croissants</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="formula-section" id="solow-par-travailleur" data-title="Production par travailleur Solow y k capital intensité travailleur" data-chapter="Chapitre 3" data-concept="Production">
+                    <span class="concept-tag">Production · Solow</span>
+                    <h2>Production par travailleur — Solow (cas $\alpha = \beta = \tfrac{1}{2}$)</h2>
+                    <div class="description">On définit $y = Y/N$ et $k = K/N$. En divisant $Y = K^{1/2}N^{1/2}$ par $N$ :</div>
+                    <div class="formula-block">$$y = k^{1/2}$$</div>
+                    <blockquote>Rendements <strong>décroissants</strong> en $k$ — moteur de la convergence dans Solow — même si la fonction de production originale a des rendements constants.</blockquote>
+                </div>
+
+                <div class="formula-section" id="solow-croissance" data-title="Taux de croissance Solow approximation logarithmique alpha capital" data-chapter="Chapitre 3" data-concept="Croissance">
+                    <span class="concept-tag">Croissance · Solow</span>
+                    <h2>Taux de croissance — Solow (cas $N = 1$, général $\alpha$)</h2>
+                    <div class="description">Approximation logarithmique :</div>
+                    <div class="formula-block">$$g_Y \approx \ln(Y_{t+1}) - \ln(Y_t)$$</div>
+                    <div class="description">Avec $Y = K^\alpha$ :</div>
+                    <div class="formula-block">$$g_Y \approx \alpha \cdot g_K$$</div>
+                    <blockquote>Sans progrès technologique, la croissance du capital ralentit à cause des rendements décroissants → une croissance soutenue à long terme nécessite le progrès technologique.</blockquote>
+                </div>
+
+            </div><!-- /ch3 -->
+
+            <!-- ════════════════════════════════
+                 CHAPITRE 4
+            ════════════════════════════════ -->
+            <div id="ch4" class="chapter">
+
+                <div class="formula-section" id="revenu-disponible" data-title="Identités de base revenu disponible PIB dépense" data-chapter="Chapitre 4" data-concept="Demande agrégée">
+                    <span class="concept-tag">Demande agrégée</span>
+                    <h2>Identités de base</h2>
+                    <h3>PIB par l'approche dépense</h3>
+                    <div class="formula-block">$$Y = C + I + G + X - M$$</div>
+                    <h3>Revenu disponible</h3>
+                    <div class="formula-block">$$Y_D = Y - T$$</div>
+                </div>
+
+                <div class="formula-section" id="fonctions-comportement" data-title="Fonctions de comportement consommation investissement exogène" data-chapter="Chapitre 4" data-concept="Demande agrégée">
+                    <span class="concept-tag">Demande agrégée</span>
+                    <h2>Fonctions de comportement</h2>
+                    <h3>Fonction de consommation</h3>
+                    <div class="formula-block">$$C = c_0 + c_1 Y_D$$</div>
+                    <h3>Fonction de consommation développée</h3>
+                    <div class="formula-block">$$C = c_0 + c_1(Y - T)$$</div>
+                    <h3>Investissement exogène</h3>
+                    <div class="formula-block">$$I = \bar{I}$$</div>
+                    <h3>Dépenses publiques et impôts exogènes</h3>
+                    <div class="formula-block">$$G = \bar{G} \quad ; \quad T = \bar{T}$$</div>
+                </div>
+
+                <div class="formula-section" id="demande-agregee" data-title="Demande agrégée Z économie fermée" data-chapter="Chapitre 4" data-concept="Demande agrégée">
+                    <span class="concept-tag">Demande agrégée</span>
+                    <h2>Demande agrégée</h2>
+                    <h3>Demande agrégée en économie fermée</h3>
+                    <div class="formula-block">$$Z = C + I + G$$</div>
+                    <h3>Demande agrégée développée</h3>
+                    <div class="formula-block">$$Z = c_0 + c_1(Y - T) + \bar{I} + G$$</div>
+                </div>
+
+                <div class="formula-section" id="production-equilibre" data-title="Équilibre marché des biens production d'équilibre Y étoile" data-chapter="Chapitre 4" data-concept="Demande agrégée">
+                    <span class="concept-tag">Demande agrégée</span>
+                    <h2>Équilibre du marché des biens</h2>
+                    <h3>Condition d'équilibre</h3>
+                    <div class="formula-block">$$Y = Z$$</div>
+                    <h3>Production d'équilibre</h3>
+                    <div class="formula-block">$$Y^* = \frac{1}{1-c_1}(c_0 - c_1 T + \bar{I} + G)$$</div>
+                </div>
+
+                <div class="formula-section" id="multiplicateur" data-title="Multiplicateur keynésien G T série géométrique" data-chapter="Chapitre 4" data-concept="Multiplicateur">
+                    <span class="concept-tag">Multiplicateur</span>
+                    <h2>Le multiplicateur</h2>
+                    <h3>Multiplicateur keynésien</h3>
+                    <div class="formula-block">$$\frac{1}{1-c_1}$$</div>
+                    <h3>Multiplicateur de G</h3>
+                    <div class="formula-block">$$\frac{\partial Y^*}{\partial G} = \frac{1}{1-c_1}$$</div>
+                    <h3>Multiplicateur de T</h3>
+                    <div class="formula-block">$$\frac{\partial Y^*}{\partial T} = \frac{-c_1}{1-c_1}$$</div>
+                    <h3>Dynamique du multiplicateur (série géométrique)</h3>
+                    <div class="formula-block">$$\Delta Y_{total} = 1 + c_1 + c_1^2 + c_1^3 + \dots = \frac{1}{1-c_1}$$</div>
+                </div>
+
+                <div class="formula-section" id="paradoxe-epargne" data-title="Paradoxe de l'épargne Keynes court terme revenu équilibre c0" data-chapter="Chapitre 4" data-concept="Multiplicateur">
+                    <span class="concept-tag">Multiplicateur</span>
+                    <h2>Paradoxe de l'épargne</h2>
+                    <div class="formula-block">$$Y^* = \frac{1}{1-c_1}(c_0 - c_1 T + \bar{I} + G)$$</div>
+                    <div class="description">Si $c_0 \downarrow$ (hausse de l'épargne désirée) → $Y^* \downarrow$ via le multiplicateur. Vouloir épargner davantage <strong>collectivement réduit le revenu d'équilibre</strong> — l'épargne agrégée ne change pas car $S = \bar{I}$ à l'équilibre.</div>
+                    <table>
+                        <thead><tr><th>Horizon</th><th>Effet d'une hausse de l'épargne</th></tr></thead>
+                        <tbody>
+                            <tr><td>Court terme (Keynes)</td><td>$c_0 \downarrow$ → $Y^* \downarrow$ → production $\downarrow$</td></tr>
+                            <tr><td>Long terme (Solow)</td><td>$\uparrow$ capital → $\uparrow$ production</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="formula-section" id="epargne-is" data-title="Épargne privée équation IS investissement" data-chapter="Chapitre 4" data-concept="IS">
+                    <span class="concept-tag">IS</span>
+                    <h2>Équilibre IS – Épargne = Investissement</h2>
+                    <h3>Épargne privée</h3>
+                    <div class="formula-block">$$S_p = Y - T - C$$</div>
+                    <h3>Équation IS</h3>
+                    <div class="formula-block">$$S_p = \bar{I} + (G - T)$$</div>
+                    <h3>Forme alternative</h3>
+                    <div class="formula-block">$$\bar{I} = S_p + (T - G)$$</div>
+                </div>
+
+            </div><!-- /ch4 -->
+
+            <!-- ════════════════════════════════
+                 CHAPITRE 5
+            ════════════════════════════════ -->
+            <div id="ch5" class="chapter">
+
+                <div class="formula-section" id="obligations" data-title="Obligations taux d'intérêt prix obligation" data-chapter="Chapitre 5" data-concept="Monnaie">
+                    <span class="concept-tag">Monnaie</span>
+                    <h2>Obligations et taux d'intérêt</h2>
+                    <h3>Taux d'intérêt à partir du prix d'une obligation</h3>
+                    <div class="formula-block">$$i = \frac{100 - P_b}{P_b}$$</div>
+                    <h3>Prix d'une obligation à partir du taux</h3>
+                    <div class="formula-block">$$P_b = \frac{100}{1+i}$$</div>
+                    <blockquote>$P_b$ et $i$ sont inversement liés : $P_b \uparrow \Rightarrow i \downarrow$</blockquote>
+                </div>
+
+                <div class="formula-section" id="demande-monnaie" data-title="Demande de monnaie LM équilibre offre" data-chapter="Chapitre 5" data-concept="Monnaie">
+                    <span class="concept-tag">Monnaie</span>
+                    <h2>Demande de monnaie</h2>
+                    <h3>Fonction de demande de monnaie</h3>
+                    <div class="formula-block">$$M^d = PY \cdot L(i)$$</div>
+                    <table>
+                        <thead><tr><th>Variable</th><th>Effet sur $M^d$</th></tr></thead>
+                        <tbody>
+                            <tr><td>$PY \uparrow$</td><td>$M^d \uparrow$</td></tr>
+                            <tr><td>$i \uparrow$</td><td>$M^d \downarrow$</td></tr>
+                        </tbody>
+                    </table>
+                    <blockquote>$L(i)$ est décroissante en $i$ – elle n'a pas de forme algébrique explicite dans ce modèle.</blockquote>
+                    <h3>Condition d'équilibre LM</h3>
+                    <div class="formula-block">$$M^s = M^d \Rightarrow M^s = PY \cdot L(i)$$</div>
+                </div>
+
+                <div class="formula-section" id="li-forme-fonctionnelle" data-title="L(i) préférence liquidité forme fonctionnelle comportement limites taux zéro infini" data-chapter="Chapitre 5" data-concept="Monnaie">
+                    <span class="concept-tag">Monnaie</span>
+                    <h2>$L(i)$ — Forme fonctionnelle et comportement</h2>
+                    <div class="description">$L(i)$ est la préférence pour la liquidité. Elle est toujours <strong>décroissante</strong> en $i$.</div>
+                    <h3>Exemple courant (Série 7)</h3>
+                    <div class="formula-block">$$L(i) = \frac{1}{(1+i)^2}$$</div>
+                    <h3>Comportement aux limites</h3>
+                    <table>
+                        <thead><tr><th>Situation</th><th>$L(i)$</th><th>Intuition</th></tr></thead>
+                        <tbody>
+                            <tr><td>$i \to \infty$</td><td>$L(i) \to 0$</td><td>Placements très attractifs → agents ne veulent plus de cash</td></tr>
+                            <tr><td>$i \to 0$</td><td>$L(i) \to$ max</td><td>Obligations ne rapportent rien → agents indifférents → forte demande de monnaie</td></tr>
+                            <tr><td>$i = 0$</td><td>$L(0) = 1$</td><td>Trappe à liquidités — $M^s$ supplémentaire est thésaurisé</td></tr>
+                        </tbody>
+                    </table>
+                    <blockquote>$L(i)$ n'a pas de forme unique — la forme algébrique est donnée dans l'énoncé. Ce qui compte : elle est positive et décroissante en $i$.</blockquote>
+                </div>
+
+                <div class="formula-section" id="equilibre-i-etoile" data-title="Équilibre taux intérêt i étoile résolution demande offre monnaie" data-chapter="Chapitre 5" data-concept="Monnaie">
+                    <span class="concept-tag">Monnaie</span>
+                    <h2>Résolution pour $i^*$ — Équilibre du marché</h2>
+                    <h3>Sans banques commerciales</h3>
+                    <div class="formula-block">$$M^s = P \cdot Y \cdot L(i^*) \implies L(i^*) = \frac{M^s}{P \cdot Y}$$</div>
+                    <div class="description">Puis inverser $L$ selon la forme fonctionnelle donnée.</div>
+                    <h3>Avec banques commerciales</h3>
+                    <div class="formula-block">$$\mu \cdot H = P \cdot Y \cdot L(i^*) \implies L(i^*) = \frac{\mu \cdot H}{P \cdot Y}$$</div>
+                    <h3>Effets comparatifs sur $i^*$</h3>
+                    <table>
+                        <thead><tr><th>Choc</th><th>Effet sur $i^*$</th><th>Mécanisme</th></tr></thead>
+                        <tbody>
+                            <tr><td>$P \uparrow$</td><td>$i^* \uparrow$</td><td>$M^d$ nominale $\uparrow$ → excès de demande → $i \uparrow$</td></tr>
+                            <tr><td>$Y \uparrow$</td><td>$i^* \uparrow$</td><td>Plus de transactions → $M^d \uparrow$ → $i \uparrow$</td></tr>
+                            <tr><td>BC achète titres ($H \uparrow$)</td><td>$i^* \downarrow$</td><td>$M^s \uparrow$ → excès d'offre → $P_b \uparrow$ → $i \downarrow$</td></tr>
+                            <tr><td>$\theta \uparrow$</td><td>$i^* \uparrow$</td><td>$\mu \downarrow$ → $M^s \downarrow$ → $i \uparrow$</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="formula-section" id="modele-banques" data-title="Modèle avec banques commerciales masse monétaire réserves numéraire dépôts" data-chapter="Chapitre 5" data-concept="Monnaie">
+                    <span class="concept-tag">Monnaie</span>
+                    <h2>Modèle avec banques commerciales</h2>
+                    <h3>Masse monétaire totale</h3>
+                    <div class="formula-block">$$M = E + D$$</div>
+                    <blockquote>$E$ = numéraire, $D$ = dépôts à vue</blockquote>
+                    <h3>Monnaie banque centrale</h3>
+                    <div class="formula-block">$$H = E + R$$</div>
+                    <blockquote>$R$ = réserves des banques à la BC</blockquote>
+                    <h3>Demande de monnaie banque centrale</h3>
+                    <div class="formula-block">$$H^d = E^d + R^d = c \cdot M^d + \theta(1-c) \cdot M^d$$</div>
+                    <div class="formula-block">$$H^d = [c + \theta(1-c)] \cdot PY \cdot L(i)$$</div>
+                    <table>
+                        <thead><tr><th>Paramètre</th><th>Définition</th></tr></thead>
+                        <tbody>
+                            <tr><td>$c$</td><td>Part de monnaie détenue en numéraire par les agents</td></tr>
+                            <tr><td>$1-c$</td><td>Part de monnaie détenue en dépôts</td></tr>
+                            <tr><td>$\theta$</td><td>Ratio de réserves des banques ($R / D$)</td></tr>
+                        </tbody>
+                    </table>
+                    <h3>Équilibre avec banques commerciales</h3>
+                    <div class="formula-block">$$H = [c + \theta(1-c)] \cdot PY \cdot L(i)$$</div>
+                </div>
+
+                <div class="formula-section" id="multiplicateur-monetaire" data-title="Multiplicateur monétaire offre de monnaie mu" data-chapter="Chapitre 5" data-concept="Monnaie">
+                    <span class="concept-tag">Monnaie</span>
+                    <h2>Multiplicateur monétaire</h2>
+                    <h3>Offre de monnaie totale</h3>
+                    <div class="formula-block">$$M^s = \frac{1}{c + \theta(1-c)} \cdot H$$</div>
+                    <h3>Multiplicateur</h3>
+                    <div class="formula-block">$$\mu = \frac{1}{c + \theta(1-c)} \geq 1$$</div>
+                    <blockquote>Le multiplicateur est toujours $\geq 1$ : chaque franc de monnaie BC génère plus d'un franc de masse monétaire totale.</blockquote>
+                </div>
+
+                <div class="formula-section" id="bitcoin" data-title="Bitcoin taux de rendement anticipé demande crypto" data-chapter="Chapitre 5" data-concept="Monnaie">
+                    <span class="concept-tag">Monnaie</span>
+                    <h2>Application Bitcoin (exercice)</h2>
+                    <h3>Taux de rendement anticipé du Bitcoin</h3>
+                    <div class="formula-block">$$r_{Ba} = \frac{P_B^a - P_B}{P_B}$$</div>
+                    <h3>Demande de Bitcoin en valeur</h3>
+                    <div class="formula-block">$$P_B \cdot B^d = \varphi \cdot PY \cdot L_B(r, r_{Ba})$$</div>
+                    <h3>Forme développée</h3>
+                    <div class="formula-block">$$P_B \cdot B^d = \varphi \cdot PY \cdot L_B(r, P_B, P_B^a)$$</div>
+                    <table>
+                        <thead><tr><th>Variable</th><th>Effet sur $B^d$</th></tr></thead>
+                        <tbody>
+                            <tr><td>$r \uparrow$</td><td>$B^d \downarrow$ (coût d'opportunité)</td></tr>
+                            <tr><td>$P_B \uparrow$</td><td>$B^d \downarrow$ (rendement anticipé baisse)</td></tr>
+                            <tr><td>$P_B^a \uparrow$</td><td>$B^d \uparrow$ (rendement anticipé hausse)</td></tr>
+                            <tr><td>$PY \uparrow$</td><td>$B^d \uparrow$</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="formula-section" id="open-market" data-title="Open market opération marché ouvert bilan banque centrale H titres" data-chapter="Chapitre 5" data-concept="Monnaie">
+                    <span class="concept-tag">Monnaie</span>
+                    <h2>Opérations d'open market</h2>
+                    <div class="description">La BC achète ou vend des titres sur le marché pour modifier la base monétaire $H$.</div>
+                    <h3>Achat de titres (expansion)</h3>
+                    <div class="formula-block">$$H \uparrow \implies M^s = \mu \cdot H \uparrow \implies i \downarrow$$</div>
+                    <h3>Vente de titres (contraction)</h3>
+                    <div class="formula-block">$$H \downarrow \implies M^s = \mu \cdot H \downarrow \implies i \uparrow$$</div>
+                    <h3>Effet sur le bilan de la BC</h3>
+                    <table>
+                        <thead><tr><th></th><th>Actif</th><th>Passif</th></tr></thead>
+                        <tbody>
+                            <tr><td>Achat de titres</td><td>Titres $\uparrow$</td><td>$H \uparrow$ (bilan <strong>s'étend</strong>)</td></tr>
+                            <tr><td>Vente de titres</td><td>Titres $\downarrow$</td><td>$H \downarrow$ (bilan <strong>se comprime</strong>)</td></tr>
+                        </tbody>
+                    </table>
+                    <blockquote>Acheter des titres = injecter de la monnaie = bilan BC gonfle. Vendre des titres = retirer de la monnaie = bilan BC se comprime.</blockquote>
+                </div>
+
+                <div class="formula-section" id="trappe-liquidites" data-title="Trappe à liquidités i zéro politique monétaire inefficace Japon" data-chapter="Chapitre 5" data-concept="Monnaie">
+                    <span class="concept-tag">Monnaie</span>
+                    <h2>Trappe à liquidités</h2>
+                    <div class="description">Situation où $i = 0$ et la politique monétaire devient <strong>inefficace</strong>.</div>
+                    <h3>Condition</h3>
+                    <div class="formula-block">$$i = 0 \implies P_b = \frac{1}{1+0} = 1$$</div>
+                    <div class="description">Obligations et monnaie sont parfaits substituts. Les agents thésaurisent toute injection de $H$.</div>
+                    <h3>Pourquoi la politique monétaire échoue</h3>
+                    <table>
+                        <thead><tr><th>Situation normale</th><th>Trappe à liquidités</th></tr></thead>
+                        <tbody>
+                            <tr><td>$M^s \uparrow$ → agents achètent obligations → $P_b \uparrow$ → $i \downarrow$</td><td>$i = 0$ déjà → impossible de baisser davantage → $M^s \uparrow$ n'a aucun effet</td></tr>
+                        </tbody>
+                    </table>
+                    <h3>Vérification sur $M^d$</h3>
+                    <div class="formula-block">$$\text{Trappe si } M^d(i=0) \leq M^s$$</div>
+                    <blockquote>Exemple historique : Japon années 1990, Zone Euro 2014–2021. La politique budgétaire prend le relais.</blockquote>
+                </div>
+
+                <div class="formula-section" id="theta-politique" data-title="Theta réserves obligatoires instrument politique monétaire multiplicateur" data-chapter="Chapitre 5" data-concept="Monnaie">
+                    <span class="concept-tag">Monnaie</span>
+                    <h2>$\theta$ comme instrument de politique monétaire</h2>
+                    <div class="description">Si la BC fixe $\theta$ (taux de réserves obligatoires), elle contrôle $\mu$ et donc $M^s$.</div>
+                    <h3>Politique expansive</h3>
+                    <div class="formula-block">$$\theta \downarrow \implies \mu \uparrow \implies M^s \uparrow \implies i \downarrow \implies I \uparrow \implies Y \uparrow$$</div>
+                    <h3>Politique restrictive</h3>
+                    <div class="formula-block">$$\theta \uparrow \implies \mu \downarrow \implies M^s \downarrow \implies i \uparrow \implies I \downarrow \implies Y \downarrow$$</div>
+                    <h3>Réserves excédentaires</h3>
+                    <div class="description">Si les banques détiennent des réserves <strong>au-delà</strong> de $\theta$, le multiplicateur effectif est plus faible que $\mu$ théorique. Le cas extrême : banques alignent réserves sur dépôts ($\theta_{eff} \approx 1$ → $\mu \approx 1$ → $M^s \approx H$). Cas du Japon années 1990.</div>
+                    <blockquote>Instrument moins courant que l'open market dans les économies avancées.</blockquote>
+                </div>
+
+                <div class="formula-section" id="synthese-ch5" data-title="Relations clés monnaie trappe à liquidités" data-chapter="Chapitre 5" data-concept="Synthèse">
+                    <span class="concept-tag">Synthèse</span>
+                    <h2>Récapitulatif des relations clés</h2>
+                    <table>
+                        <thead><tr><th>Si...</th><th>Alors...</th><th>Mécanisme</th></tr></thead>
+                        <tbody>
+                            <tr><td>$M^s \uparrow$</td><td>$i \downarrow$</td><td>Offre excédentaire – achat d'obligations – $P_b \uparrow$ – $i \downarrow$</td></tr>
+                            <tr><td>$PY \uparrow$</td><td>$i \uparrow$</td><td>Demande excédentaire – vente d'obligations – $P_b \downarrow$ – $i \uparrow$</td></tr>
+                            <tr><td>$H \uparrow$</td><td>$i \downarrow$</td><td>Même mécanisme, via les réserves des banques</td></tr>
+                            <tr><td>$i = 0\%$</td><td>Trappe à liquidités</td><td>$M^s \uparrow$ n'a plus d'effet sur $i$</td></tr>
+                        </tbody>
+                    </table>
+                    <ul>
+                        <li>La valeur exacte de $L(i)$ ou $L_B$ – raisonnement sur les <strong>signes uniquement</strong></li>
+                        <li>La valeur exacte de $H^d$ sans chiffres explicitement donnés</li>
+                    </ul>
+                </div>
+
+            </div><!-- /ch5 -->
+
+            <!-- ════════════════════════════════
+                 CHAPITRE 6
+            ════════════════════════════════ -->
+            <div id="ch6" class="chapter">
+
+                <div class="formula-section" id="demande-finale-is" data-title="Marché des biens IS demande finale consommation investissement multiplicateur" data-chapter="Chapitre 6" data-concept="IS/LM">
+                    <span class="concept-tag">IS/LM</span>
+                    <h2>Marché des biens (IS)</h2>
+                    <h3>Demande finale</h3>
+                    <div class="formula-block">$$Z = C(Y-T) + I(Y,i) + G$$</div>
+                    <h3>Condition d'équilibre</h3>
+                    <div class="formula-block">$$Y = Z$$</div>
+                    <h3>Revenu disponible</h3>
+                    <div class="formula-block">$$Y_D = Y - T$$</div>
+                    <h3>Fonction de consommation</h3>
+                    <div class="formula-block">$$C = c_0 + c_1(Y-T)$$</div>
+                    <div class="description">
+                        <ul>
+                            <li>$c_1 \in (0,1)$ : propension marginale à consommer</li>
+                            <li>$c_0$ : consommation autonome</li>
+                        </ul>
+                    </div>
+                    <h3>Fonction d'investissement</h3>
+                    <div class="formula-block">$$I = I(Y, i) \quad (+,-)$$</div>
+                    <h3>Multiplicateur de G</h3>
+                    <div class="formula-block">$$\Delta Y = \frac{1}{1-c_1} \cdot \Delta G$$</div>
+                    <h3>Multiplicateur de T</h3>
+                    <div class="formula-block">$$\Delta Y = -\frac{c_1}{1-c_1} \cdot \Delta T$$</div>
+                </div>
+
+                <div class="formula-section" id="regle-lm" data-title="Marché de la monnaie LM équilibre réel nominal banque centrale cible taux" data-chapter="Chapitre 6" data-concept="IS/LM">
+                    <span class="concept-tag">IS/LM</span>
+                    <h2>Marché de la monnaie (LM)</h2>
+                    <h3>Équilibre nominal</h3>
+                    <div class="formula-block">$$M^s = P \cdot Y \cdot L(i)$$</div>
+                    <h3>Équilibre réel</h3>
+                    <div class="formula-block">$$\frac{M}{P} = Y \cdot L(i)$$</div>
+                    <h3>Règle LM – hypothèse moderne (BC cible le taux)</h3>
+                    <div class="formula-block">$$i = \bar{i}$$</div>
+                </div>
+
+                <div class="formula-section" id="modele-islm" data-title="Modèle IS LM complet" data-chapter="Chapitre 6" data-concept="IS/LM">
+                    <span class="concept-tag">IS/LM</span>
+                    <h2>Modèle IS/LM complet</h2>
+                    <div class="formula-block">$$\text{IS : } Y = C(Y-T) + I(Y,i) + G$$</div>
+                    <div class="formula-block">$$\text{LM : } i = \bar{i}$$</div>
+                </div>
+
+                <div class="formula-section" id="solde-budgetaire" data-title="Solde budgétaire déficit excédent" data-chapter="Chapitre 6" data-concept="Finances publiques">
+                    <span class="concept-tag">Finances publiques</span>
+                    <h2>Solde budgétaire de l'État</h2>
+                    <div class="formula-block">$$\text{Solde} = G - T$$</div>
+                    <div class="description">
+                        <ul>
+                            <li>$G - T > 0$ : déficit budgétaire</li>
+                            <li>$G - T < 0$ : excédent budgétaire</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="formula-section" id="equation-fisher" data-title="Équation de Fisher taux réel nominal inflation anticipée" data-chapter="Chapitre 6" data-concept="Inflation">
+                    <span class="concept-tag">Inflation</span>
+                    <h2>Équation de Fisher</h2>
+                    <div class="formula-block">$$r \approx i - \pi^e$$</div>
+                    <div class="description">
+                        <ul>
+                            <li>$r$ : taux d'intérêt réel</li>
+                            <li>$i$ : taux d'intérêt nominal</li>
+                            <li>$\pi^e$ : inflation anticipée</li>
+                        </ul>
+                    </div>
+                    <blockquote>Dans IS/LM, les prix sont fixes donc $\pi^e = 0$ et $r = i$.</blockquote>
+                </div>
+
+                <div class="formula-section" id="synthese-islm" data-title="Tableau synthèse IS LM effets chocs politique monétaire budgétaire" data-chapter="Chapitre 6" data-concept="IS/LM">
+                    <span class="concept-tag">IS/LM</span>
+                    <h2>Tableau de synthèse des effets</h2>
+                    <table>
+                        <thead><tr><th>Choc</th><th>IS</th><th>LM</th><th>Y</th><th>i</th></tr></thead>
+                        <tbody>
+                            <tr><td>G↑ ou T↓</td><td>→ droite</td><td>fixe</td><td>↑</td><td>=</td></tr>
+                            <tr><td>G↓ ou T↑</td><td>→ gauche</td><td>fixe</td><td>↓</td><td>=</td></tr>
+                            <tr><td>BC baisse $\bar{i}$</td><td>fixe</td><td>→ bas</td><td>↑</td><td>↓</td></tr>
+                            <tr><td>BC hausse $\bar{i}$</td><td>fixe</td><td>→ haut</td><td>↓</td><td>↑</td></tr>
+                        </tbody>
+                    </table>
+                    <h3>Après expansion monétaire (i↓, Y↑)</h3>
+                    <div class="description">
+                        <ul>
+                            <li>$C$ ↑ car $Y$↑</li>
+                            <li>$I$ ↑↑ car $Y$↑ <strong>et</strong> $i$↓ (double effet)</li>
+                            <li>$G$ : inchangé</li>
+                        </ul>
+                    </div>
+                    <h3>Après hausse de T (Y↓, i inchangé)</h3>
+                    <div class="description">
+                        <ul>
+                            <li>$C$ ↓↓ car $Y$↓ <strong>et</strong> $T$↑ (double effet sur $Y_D$)</li>
+                            <li>$I$ ↓ car $Y$↓ uniquement</li>
+                            <li>$G$ : inchangé</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div><!-- /ch6 -->
+
+            <!-- ════════════════════════════════
+                 CHAPITRE 7
+            ════════════════════════════════ -->
+            <div id="ch7" class="chapter">
+
+                <!-- ── IS / MULTIPLICATEUR ── -->
+                <div class="formula-section" id="is-equilibre-ch7" data-title="Revenu d'équilibre IS multiplicateur keynésien impôts lump-sum" data-chapter="Chapitre 7" data-concept="Multiplicateur">
+                    <span class="concept-tag">Multiplicateur</span>
+                    <h2>Revenu d'équilibre — impôts lump-sum</h2>
+                    <div class="description">On substitue $C = c_0 + c_1(Y-T)$ dans $Y = C + I + G$ :</div>
+                    <div class="formula-block">$$Y^* = \frac{1}{1 - c_1} \cdot (c_0 + I + G - c_1 T)$$</div>
+                    <div class="description">Le terme $\dfrac{1}{1-c_1}$ est le <strong>multiplicateur keynésien</strong>. Effet d'un choc sur la demande autonome ($\Delta c_0$, $\Delta I$ ou $\Delta G$) :</div>
+                    <div class="formula-block">$$\Delta Y^* = \frac{1}{1 - c_1} \cdot \Delta(\text{demande autonome})$$</div>
+                </div>
+
+                <div class="formula-section" id="is-taxe-proportionnelle" data-title="Multiplicateur avec taxe proportionnelle taux t impôt revenu" data-chapter="Chapitre 7" data-concept="Multiplicateur">
+                    <span class="concept-tag">Multiplicateur</span>
+                    <h2>Multiplicateur avec taxe proportionnelle</h2>
+                    <div class="description">Si $T = tY$ (impôt proportionnel au revenu) :</div>
+                    <div class="formula-block">$$Y^* = \frac{1}{1 - c_1(1-t)} \cdot (c_0 + I + G)$$</div>
+                    <div class="description">Multiplicateur réduit : $\dfrac{1}{1 - c_1(1-t)}$</div>
+                    <h3>Processus multiplicateur — étape par étape</h3>
+                    <table>
+                        <thead><tr><th>Étape $n$</th><th>$\Delta Y_n$</th></tr></thead>
+                        <tbody>
+                            <tr><td>1</td><td>$\Delta I$</td></tr>
+                            <tr><td>2</td><td>$c_1(1-t) \cdot \Delta I$</td></tr>
+                            <tr><td>3</td><td>$[c_1(1-t)]^2 \cdot \Delta I$</td></tr>
+                            <tr><td>$n$</td><td>$[c_1(1-t)]^{n-1} \cdot \Delta I$</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="formula-block">$$\sum_{n=1}^{\infty} [c_1(1-t)]^{n-1} \cdot \Delta I = \frac{\Delta I}{1 - c_1(1-t)}$$</div>
+                    <blockquote>
+                        Avec $c_1 = 0.9$ et $t = 0.3$ :<br>
+                        — Sans taxe : multiplicateur $= \tfrac{1}{1-0.9} = 10$<br>
+                        — Avec taxe : multiplicateur $= \tfrac{1}{1-0.63} \approx 2.70$
+                    </blockquote>
+                </div>
+
+                <!-- ── WS/PS ── -->
+                <div class="formula-section" id="ws-ps-definitions" data-title="Marché du travail définitions L N U taux chômage participation" data-chapter="Chapitre 7" data-concept="Marché du travail">
+                    <span class="concept-tag">Marché du travail</span>
+                    <h2>Définitions de base — Marché du travail</h2>
+                    <div class="formula-block">$$L = N + U \qquad u = \frac{U}{L} \qquad l = \frac{L}{V} \qquad n = \frac{N}{V}$$</div>
+                    <table>
+                        <thead><tr><th>Variable</th><th>Définition</th></tr></thead>
+                        <tbody>
+                            <tr><td>$L$</td><td>Population active</td></tr>
+                            <tr><td>$N$</td><td>Travailleurs en emploi</td></tr>
+                            <tr><td>$U$</td><td>Chômeurs</td></tr>
+                            <tr><td>$u$</td><td>Taux de chômage</td></tr>
+                            <tr><td>$l$</td><td>Taux de participation ($V$ = pop. en âge de travailler)</td></tr>
+                            <tr><td>$n$</td><td>Taux d'emploi ($N/V$)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="formula-section" id="ws-relation" data-title="Relation WS wage setting fixation salaires chômage institutionnel" data-chapter="Chapitre 7" data-concept="Marché du travail">
+                    <span class="concept-tag">Marché du travail</span>
+                    <h2>Relation WS — Wage Setting (fixation des salaires)</h2>
+                    <div class="formula-block">$$W = P^e \cdot F(u, z) \qquad \frac{\partial F}{\partial u} < 0,\quad \frac{\partial F}{\partial z} > 0$$</div>
+                    <table>
+                        <thead><tr><th>Variable</th><th>Effet sur $W$</th></tr></thead>
+                        <tbody>
+                            <tr><td>$P^e \uparrow$</td><td>$W \uparrow$ (indexation anticipée)</td></tr>
+                            <tr><td>$u \uparrow$</td><td>$W \downarrow$ (moins de pouvoir de négociation)</td></tr>
+                            <tr><td>$z \uparrow$ (allocations chômage)</td><td>$W \uparrow$ (coût d'opportunité du travail)</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="description">Au <strong>moyen terme</strong>, $P^e = P$ :</div>
+                    <div class="formula-block">$$\frac{W}{P} = F(u, z)$$</div>
+                    <blockquote>Courbe WS : <strong>décroissante</strong> en $u$.</blockquote>
+                </div>
+
+                <div class="formula-section" id="ps-relation" data-title="Relation PS price setting fixation prix mark-up productivité" data-chapter="Chapitre 7" data-concept="Marché du travail">
+                    <span class="concept-tag">Marché du travail</span>
+                    <h2>Relation PS — Price Setting (fixation des prix)</h2>
+                    <div class="description">Fonction de production $Y = A \cdot N$. En <strong>concurrence parfaite</strong> :</div>
+                    <div class="formula-block">$$W = P \cdot A \implies P = \frac{1}{A} W$$</div>
+                    <div class="description">En <strong>concurrence imparfaite</strong>, les firmes appliquent un mark-up $m > 0$ sur leur coût marginal :</div>
+                    <div class="formula-block">$$P = (1+m) \cdot \frac{W}{A} \implies \frac{W}{P} = \frac{A}{1+m}$$</div>
+                    <table>
+                        <thead><tr><th>Variable</th><th>Définition</th></tr></thead>
+                        <tbody>
+                            <tr><td>$A$</td><td>Productivité du travail</td></tr>
+                            <tr><td>$m$</td><td>Mark-up ($m > 0$)</td></tr>
+                        </tbody>
+                    </table>
+                    <blockquote>Courbe PS : <strong>horizontale</strong> en $u$ — le salaire réel fixé par les entreprises ne dépend pas du chômage.</blockquote>
+                </div>
+
+                <div class="formula-section" id="ws-ps-equilibre" data-title="Équilibre WS PS taux de chômage structurel naturel un" data-chapter="Chapitre 7" data-concept="Marché du travail">
+                    <span class="concept-tag">Marché du travail</span>
+                    <h2>Équilibre WS/PS — Taux de chômage structurel</h2>
+                    <div class="description">À l'équilibre WS = PS :</div>
+                    <div class="formula-block">$$F(u_n, z) = \frac{A}{1+m}$$</div>
+                    <div class="description">$u_n$ = taux de chômage structurel (ou naturel).</div>
+                    <table>
+                        <thead><tr><th>Paramètre</th><th>Effet sur $u_n$</th></tr></thead>
+                        <tbody>
+                            <tr><td>$\uparrow z$ (allocations chômage)</td><td>$\uparrow u_n$ — WS glisse vers le haut</td></tr>
+                            <tr><td>$\uparrow m$ (moins de concurrence)</td><td>$\uparrow u_n$ — PS glisse vers le bas</td></tr>
+                            <tr><td>$\uparrow A$ (productivité)</td><td>$\downarrow u_n$ — PS glisse vers le haut</td></tr>
+                            <tr><td>$\uparrow$ flexibilité du marché du travail</td><td>$\downarrow u_n$ — WS pivote vers le bas</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="formula-section" id="emploi-structurel" data-title="Emploi production structurels Yn Nn chômage naturel" data-chapter="Chapitre 7" data-concept="Marché du travail">
+                    <span class="concept-tag">Marché du travail</span>
+                    <h2>Emploi et production structurels</h2>
+                    <div class="formula-block">$$N_n = L(1 - u_n)$$</div>
+                    <div class="formula-block">$$Y_n = A \cdot N_n = A \cdot L(1 - u_n)$$</div>
+                    <h3>Relation inverse</h3>
+                    <div class="formula-block">$$u_n = 1 - \frac{Y_n}{A \cdot L}$$</div>
+                    <h3>Condition d'équilibre en termes de production</h3>
+                    <div class="formula-block">$$F\!\left(1 - \frac{Y_n}{A \cdot L},\; z\right) = \frac{A}{1+m}$$</div>
+                </div>
+
+                <!-- ── RÉSUMÉ ÉQUATIONS ── -->
+                <div class="formula-section" id="equations-cles-ch7" data-title="Résumé équations clés WS PS équilibre emploi production structurels" data-chapter="Chapitre 7" data-concept="Marché du travail">
+                    <span class="concept-tag">Marché du travail</span>
+                    <h2>Résumé des équations clés</h2>
+                    <table>
+                        <thead><tr><th>Relation</th><th>Équation</th><th>Variable endogène</th></tr></thead>
+                        <tbody>
+                            <tr><td><strong>WS</strong></td><td>$W/P = F(u, z)$</td><td>$W$ (salaire nominal)</td></tr>
+                            <tr><td><strong>PS</strong></td><td>$W/P = A/(1+m)$</td><td>$P$ (niveau des prix)</td></tr>
+                            <tr><td><strong>Équilibre</strong></td><td>$F(u_n, z) = A/(1+m)$</td><td>$u_n$ (chômage structurel)</td></tr>
+                            <tr><td><strong>Emploi structurel</strong></td><td>$N_n = L(1-u_n)$</td><td>$N_n$</td></tr>
+                            <tr><td><strong>Production structurelle</strong></td><td>$Y_n = A \cdot L(1-u_n)$</td><td>$Y_n$</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- ── SYNTHÈSE ── -->
+                <div class="formula-section" id="synthese-ch7" data-title="Synthèse liens modèles IS LM Solow WS PS court moyen long terme Phillips" data-chapter="Chapitre 7" data-concept="Synthèse">
+                    <span class="concept-tag">Synthèse</span>
+                    <h2>Liens entre les modèles</h2>
+                    <table>
+                        <thead><tr><th>Horizon</th><th>Modèle</th><th>Prix</th><th>Chômage / Production</th></tr></thead>
+                        <tbody>
+                            <tr><td>Court terme</td><td>IS/LM + Keynésien</td><td>Fixes ($P$ fixe)</td><td>Déterminés par la demande</td></tr>
+                            <tr><td>Moyen terme</td><td>WS/PS</td><td>Flexibles ($P^e = P$)</td><td>Convergent vers $u_n$, $Y_n$</td></tr>
+                            <tr><td>Long terme</td><td>Solow</td><td>—</td><td>Déterminés par le capital et la technologie</td></tr>
+                        </tbody>
+                    </table>
+                    <blockquote>La <strong>courbe de Phillips</strong> fait la synthèse entre IS/LM (court terme) et WS/PS (moyen terme) : lorsque $Y > Y_n$, le chômage est inférieur à $u_n$, ce qui pousse les prix à la hausse jusqu'au retour à l'équilibre structurel.</blockquote>
+                    <h3>Liens inter-chapitres</h3>
+                    <table>
+                        <thead><tr><th>Modèle</th><th>Connexion avec Chap. 7</th></tr></thead>
+                        <tbody>
+                            <tr><td><strong>IS/LM (Chap. 5–6)</strong></td><td>IS/LM suppose $P$ fixe → valable à CT, mais incompatible avec WS/PS à MT</td></tr>
+                            <tr><td><strong>Courbe de Phillips (Chap. 8)</strong></td><td>Phillips = WS/PS sans $P^e = P$. Le NAIRU (Chap. 8) = $u_n$ (Chap. 7)</td></tr>
+                            <tr><td><strong>IS/LM/PC</strong></td><td>Synthèse qui combine les trois : IS/LM pour CT, WS/PS pour ancrage MT</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div><!-- /ch7 -->
+
+            <!-- ════════════════════════════════
+                 CHAPITRE 8
+            ════════════════════════════════ -->
+            <div id="ch8" class="chapter">
+
+                <div class="formula-section" id="phillips-derivation" data-title="Relation de Phillips dérivation WS PS inflation chômage pi" data-chapter="Chapitre 8" data-concept="Phillips">
+                    <span class="concept-tag">Phillips</span>
+                    <h2>Relation de Phillips — Dérivation</h2>
+                    <div class="description">Point de départ : combiner WS et PS sans imposer $P = P^e$ :</div>
+                    <div class="formula-block">$$P = P^e(1+m)F(u,z)$$</div>
+                    <div class="description">Avec $F(u,z) = 1 - \alpha u + z$ et l'approximation $(1+\beta)/(1+\gamma) \approx 1+\beta-\gamma$ :</div>
+                    <div class="formula-block">$$\boxed{\pi_t \approx \pi_t^e + (m+z) - \alpha u_t}$$</div>
+                    <table>
+                        <thead><tr><th>Paramètre</th><th>Rôle</th><th>Effet sur $\pi_t$ si ↑</th></tr></thead>
+                        <tbody>
+                            <tr><td>$\pi_t^e$</td><td>Inflation anticipée (formée en $t-1$)</td><td>$\uparrow$ (salaires négociés plus hauts)</td></tr>
+                            <tr><td>$m$</td><td>Mark-up des entreprises</td><td>$\uparrow$ (prix montent indépendamment des salaires)</td></tr>
+                            <tr><td>$z$</td><td>Facteurs institutionnels (allocations, etc.)</td><td>$\uparrow$ (salaires de réserve augmentent)</td></tr>
+                            <tr><td>$\alpha$</td><td>Sensibilité des salaires au chômage</td><td>$u$ "freine" davantage l'inflation</td></tr>
+                            <tr><td>$u_t$</td><td>Taux de chômage courant</td><td>$\downarrow$ ($u\uparrow$ → pouvoir de négociation faible → $W\downarrow$ → $P\downarrow$)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="formula-section" id="phillips-ancrees" data-title="Courbe de Phillips originale anticipations ancrées arbitrage inflation chômage pi étoile" data-chapter="Chapitre 8" data-concept="Phillips">
+                    <span class="concept-tag">Phillips</span>
+                    <h2>Version 1 — Anticipations ancrées (courbe originale)</h2>
+                    <div class="description"><strong>Hypothèse :</strong> $\pi_t^e = \pi^*$ (constante — inflation moyenne observée historiquement)</div>
+                    <div class="formula-block">$$\pi_t - \pi^* = (m+z) - \alpha u_t$$</div>
+                    <ul>
+                        <li>Le chômage détermine le <strong>niveau</strong> d'inflation.</li>
+                        <li>Implique un <strong>arbitrage permanent</strong> inflation/chômage.</li>
+                        <li>Valide tant que l'inflation est faible et non persistante (avant 1970).</li>
+                    </ul>
+                    <blockquote>Limite : les agents sous-estiment systématiquement l'inflation si elle augmente — hypothèse non crédible à long terme.</blockquote>
+                </div>
+
+                <div class="formula-section" id="phillips-adaptatives" data-title="Courbe de Phillips augmentée Friedman Phelps anticipations adaptatives variation inflation" data-chapter="Chapitre 8" data-concept="Phillips">
+                    <span class="concept-tag">Phillips</span>
+                    <h2>Version 2 — Anticipations adaptatives (Friedman-Phelps)</h2>
+                    <div class="description"><strong>Hypothèse :</strong> $\pi_t^e = \pi_{t-1}$ (on anticipe que demain = hier)</div>
+                    <div class="formula-block">$$\boxed{\pi_t - \pi_{t-1} = (m+z) - \alpha u_t}$$</div>
+                    <ul>
+                        <li>Le chômage détermine la <strong>variation</strong> de l'inflation, pas son niveau.</li>
+                        <li>Maintenir $u$ faible → inflation qui <strong>accélère</strong> période après période.</li>
+                        <li>Pertinente après 1970, quand l'inflation devient persistante.</li>
+                    </ul>
+                    <blockquote>Pourquoi le basculement ? Dans les années 1960, les politiques expansionnistes ont maintenu $u$ bas → inflation persistante → les agents ont adapté leurs anticipations → la courbe s'est déplacée vers le haut chaque année.</blockquote>
+                </div>
+
+                <div class="formula-section" id="nairu" data-title="NAIRU taux chômage structurel naturel un Phillips pi égal pie non-accelerating" data-chapter="Chapitre 8" data-concept="Phillips">
+                    <span class="concept-tag">Phillips · NAIRU</span>
+                    <h2>Le NAIRU — Taux de chômage structurel</h2>
+                    <div class="description">On pose $\pi_t = \pi_t^e$ dans la relation générale ($\Rightarrow 0 = (m+z) - \alpha u_n$) :</div>
+                    <div class="formula-block">$$\boxed{u_n = \frac{m+z}{\alpha}}$$</div>
+                    <blockquote>Cohérence avec WS/PS (Chap. 7) : ce résultat est identique à l'équilibre WS = PS.</blockquote>
+                    <h3>Reformulation de la courbe augmentée</h3>
+                    <div class="description">En substituant $m+z = \alpha u_n$ :</div>
+                    <div class="formula-block">$$\pi_t - \pi_{t-1} = -\alpha(u_t - u_n)$$</div>
+                    <table>
+                        <thead><tr><th>Situation</th><th>Conséquence</th></tr></thead>
+                        <tbody>
+                            <tr><td>$u_t < u_n$</td><td>Inflation <strong>accélère</strong> ($\pi_t > \pi_{t-1}$)</td></tr>
+                            <tr><td>$u_t = u_n$</td><td>Inflation <strong>stable</strong> ($\pi_t = \pi_{t-1}$)</td></tr>
+                            <tr><td>$u_t > u_n$</td><td>Inflation <strong>décélère</strong> ($\pi_t < \pi_{t-1}$)</td></tr>
+                        </tbody>
+                    </table>
+                    <blockquote><strong>NAIRU</strong> = Non-Accelerating Inflation Rate of Unemployment = taux de chômage n'accélérant pas l'inflation.</blockquote>
+                </div>
+
+                <div class="formula-section" id="nairu-determinants" data-title="Déterminants NAIRU taux chômage naturel z m alpha flexibilité" data-chapter="Chapitre 8" data-concept="Phillips">
+                    <span class="concept-tag">Phillips · NAIRU</span>
+                    <h2>Déterminants de $u_n$</h2>
+                    <div class="formula-block">$$u_n = \frac{m+z}{\alpha}$$</div>
+                    <table>
+                        <thead><tr><th>Choc</th><th>Effet sur $u_n$</th><th>Mécanisme</th></tr></thead>
+                        <tbody>
+                            <tr><td>$\uparrow z$ (allocations chômage)</td><td>$\uparrow u_n$</td><td>Les travailleurs acceptent moins facilement un salaire bas → WS monte</td></tr>
+                            <tr><td>$\uparrow m$ (pouvoir de marché des firmes)</td><td>$\uparrow u_n$</td><td>PS descend → $W/P$ d'équilibre baisse → plus de chômage nécessaire</td></tr>
+                            <tr><td>$\uparrow \alpha$ (flexibilité du marché du travail)</td><td>$\downarrow u_n$</td><td>Le chômage "discipline" davantage les salaires</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="formula-section" id="phillips-empirique" data-title="Estimation NAIRU empirique régression Suisse alpha chômage naturel" data-chapter="Chapitre 8" data-concept="Phillips">
+                    <span class="concept-tag">Phillips · Application</span>
+                    <h2>Estimation empirique de $u_n$</h2>
+                    <div class="description">Méthode : régresser $(\pi_t - \pi_{t-1})$ sur $u_t$, identifier $\alpha$ et $\alpha u_n$.</div>
+                    <h3>Exemple Suisse (1992–2018)</h3>
+                    <div class="formula-block">$$\pi_t - \pi_{t-1} = -0.3\,u_t + 0.8$$</div>
+                    <table>
+                        <thead><tr><th>Paramètre estimé</th><th>Valeur</th></tr></thead>
+                        <tbody>
+                            <tr><td>$\alpha$</td><td>$0.3$</td></tr>
+                            <tr><td>$\alpha u_n$</td><td>$0.8$</td></tr>
+                            <tr><td>$u_n$</td><td>$0.8\,/\,0.3 \approx 2.67\%$</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="formula-section" id="synthese-ch8" data-title="Synthèse historique mutations anticipations Phillips courbe 1960 1970 Friedman Phelps" data-chapter="Chapitre 8" data-concept="Synthèse">
+                    <span class="concept-tag">Synthèse</span>
+                    <h2>Mutations historiques de la courbe de Phillips</h2>
+                    <table>
+                        <thead><tr><th>Période</th><th>Régime d'anticipations</th><th>Courbe pertinente</th><th>Arbitrage inflation/chômage ?</th></tr></thead>
+                        <tbody>
+                            <tr><td>1900–1960</td><td>Ancrées (inflation faible et variable)</td><td>Originale (niveau)</td><td>Oui, apparent</td></tr>
+                            <tr><td>1960–1970</td><td>Ancrées (politique expansionniste)</td><td>Originale, mais déplacée</td><td>Oui, mais instable</td></tr>
+                            <tr><td>Après 1970</td><td>Adaptatives (inflation persistante)</td><td>Augmentée (variation)</td><td>Non durable</td></tr>
+                        </tbody>
+                    </table>
+                    <blockquote><strong>Leçon de Friedman &amp; Phelps :</strong> L'arbitrage inflation/chômage n'est possible que si les agents sous-estiment systématiquement l'inflation. Dès qu'ils adaptent leurs anticipations, la courbe se déplace et l'arbitrage disparaît.</blockquote>
+                    <h3>Liens avec les autres chapitres</h3>
+                    <table>
+                        <thead><tr><th>Modèle</th><th>Lien avec Chap. 8</th></tr></thead>
+                        <tbody>
+                            <tr><td><strong>WS/PS (Chap. 7)</strong></td><td>La relation de Phillips est WS/PS sans imposer $P = P^e$. Le NAIRU = $u_n$ de WS/PS.</td></tr>
+                            <tr><td><strong>IS/LM (Chap. 5–6)</strong></td><td>IS/LM explique les variations CT de $Y$ et donc de $u$ (Okun). Ces variations de $u$ déterminent via Phillips la dynamique de l'inflation.</td></tr>
+                            <tr><td><strong>IS/LM/PC</strong></td><td>Modèle synthétique qui relie explicitement IS/LM à la courbe de Phillips.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div><!-- /ch8 -->
+
+        </div><!-- /content -->
+    </div><!-- /main-content -->
+</div><!-- /layout -->
+
+<script>
+    let currentChapter = 'ch1';
+    let searchMode = false;
+
+    // ── SWITCH TAB ──
+    function switchTab(tabId, btn) {
+        if (searchMode) exitSearch();
+        document.querySelectorAll('.chapter').forEach(ch => ch.classList.remove('active'));
+        document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        if (btn) btn.classList.add('active');
+        currentChapter = tabId;
+    }
+
+    // ── SIDEBAR NAVIGATION ──
+    function goTo(chapterId, sectionId) {
+        if (window.innerWidth <= 860) {
+            document.getElementById('sidebar').classList.remove('open');
+        }
+        if (searchMode) exitSearch();
+
+        // Activate correct tab
+        document.querySelectorAll('.chapter').forEach(ch => ch.classList.remove('active'));
+        document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+        document.getElementById(chapterId).classList.add('active');
+        const chNum = parseInt(chapterId.replace('ch', '')) - 1;
+        document.querySelectorAll('.tab-button')[chNum].classList.add('active');
+        currentChapter = chapterId;
+
+        // Scroll to section
+        setTimeout(() => {
+            const el = document.getElementById(sectionId);
+            if (!el) return;
+            const headerH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 62;
+            const tabsH = document.getElementById('tabs-bar').offsetHeight;
+            const top = el.getBoundingClientRect().top + window.scrollY - headerH - tabsH - 16;
+            window.scrollTo({ top, behavior: 'smooth' });
+            el.classList.add('flash');
+            setTimeout(() => el.classList.remove('flash'), 1400);
+        }, 40);
+
+        setSidebarActive(sectionId);
+    }
+
+    function setSidebarActive(sectionId) {
+        document.querySelectorAll('.sidebar-link').forEach(link => {
+            link.classList.remove('active');
+            const fn = link.getAttribute('onclick') || '';
+            if (fn.includes("'" + sectionId + "'")) link.classList.add('active');
+        });
+    }
+
+    // ── SEARCH ──
+    function handleSearch(query) {
+        const countEl = document.getElementById('search-count');
+        if (!query.trim()) { exitSearch(); countEl.textContent = ''; return; }
+
+        searchMode = true;
+        document.getElementById('tabs-bar').style.display = 'none';
+        document.querySelectorAll('.chapter').forEach(ch => ch.classList.remove('active'));
+
+        const view = document.getElementById('search-results-view');
+        view.style.display = 'block';
+
+        const q = query.toLowerCase().trim();
+        const container = document.getElementById('search-results-container');
+        container.innerHTML = '';
+
+        const chapNames = { ch1:'Chapitre 1', ch2:'Chapitre 2', ch3:'Chapitre 3', ch4:'Chapitre 4', ch5:'Chapitre 5', ch6:'Chapitre 6', ch7:'Chapitre 7', ch8:'Chapitre 8' };
+        let total = 0;
+
+        ['ch1','ch2','ch3','ch4','ch5','ch6','ch7','ch8'].forEach(chId => {
+            const chEl = document.getElementById(chId);
+            const matched = [];
+            chEl.querySelectorAll('.formula-section').forEach(sec => {
+                const title   = (sec.dataset.title   || '').toLowerCase();
+                const concept = (sec.dataset.concept || '').toLowerCase();
+                const text    = sec.innerText.toLowerCase();
+                if (title.includes(q) || concept.includes(q) || text.includes(q)) matched.push(sec);
+            });
+            if (matched.length === 0) return;
+
+            const label = document.createElement('div');
+            label.className = 'search-chapter-label';
+            label.textContent = chapNames[chId];
+            container.appendChild(label);
+
+            matched.forEach(sec => {
+                const clone = sec.cloneNode(true);
+                clone.removeAttribute('id');
+                container.appendChild(clone);
+            });
+            total += matched.length;
+        });
+
+        document.getElementById('search-no-results').style.display = total === 0 ? 'block' : 'none';
+        countEl.textContent = total > 0 ? total + ' résultat' + (total > 1 ? 's' : '') : '';
+    }
+
+    function exitSearch() {
+        searchMode = false;
+        document.getElementById('tabs-bar').style.display = '';
+        const view = document.getElementById('search-results-view');
+        view.style.display = 'none';
+        document.getElementById('search-results-container').innerHTML = '';
+        document.getElementById(currentChapter).classList.add('active');
+        const chNum = parseInt(currentChapter.replace('ch', '')) - 1;
+        document.querySelectorAll('.tab-button')[chNum].classList.add('active');
+        document.getElementById('search-input').value = '';
+        document.getElementById('search-count').textContent = '';
+    }
+
+    // ── SIDEBAR TOGGLE (mobile) ──
+    function toggleSidebar() {
+        document.getElementById('sidebar').classList.toggle('open');
+    }
+    document.addEventListener('click', e => {
+        const sidebar = document.getElementById('sidebar');
+        if (sidebar.classList.contains('open') && !sidebar.contains(e.target) && !e.target.closest('.sidebar-toggle')) {
+            sidebar.classList.remove('open');
+        }
+    });
+
+    // ── SCROLL SPY ──
+    window.addEventListener('scroll', () => {
+        if (searchMode) return;
+        const sections = document.querySelectorAll('.chapter.active .formula-section');
+        let current = '';
+        sections.forEach(sec => {
+            if (sec.getBoundingClientRect().top <= 140) current = sec.id;
+        });
+        if (current) setSidebarActive(current);
+    }, { passive: true });
+
+    // ── KATEX ──
+    document.addEventListener('DOMContentLoaded', () => {
+        if (window.renderMathInElement) {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    { left: '$$', right: '$$', display: true },
+                    { left: '$',  right: '$',  display: false }
+                ],
+                throwOnError: false
+            });
+        }
+    });
+</script>
+</body>
+</html>
