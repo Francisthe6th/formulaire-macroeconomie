@@ -444,6 +444,32 @@
             <div class="sidebar-link" onclick="goTo('ch8','phillips-empirique')">Estimation empirique <span class="ch-badge">Ch8</span></div>
         </div>
 
+        <div class="sidebar-group">
+            <div class="sidebar-group-title">Économie ouverte (Bases)</div>
+            <div class="sidebar-link" onclick="goTo('ch9','taux-change-nominal')">Taux de change nominal <span class="ch-badge">Ch9</span></div>
+            <div class="sidebar-link" onclick="goTo('ch9','taux-change-reel')">Taux de change réel <span class="ch-badge">Ch9</span></div>
+            <div class="sidebar-link" onclick="goTo('ch9','parite-taux-interet')">Parité des taux d'intérêt <span class="ch-badge">Ch9</span></div>
+            <div class="sidebar-link" onclick="goTo('ch9','balance-paiements')">Balance des paiements <span class="ch-badge">Ch9</span></div>
+        </div>
+
+        <div class="sidebar-group">
+            <div class="sidebar-group-title">Marché des biens ouvert</div>
+            <div class="sidebar-link" onclick="goTo('ch10','demande-biens-nationaux')">Demande biens nationaux <span class="ch-badge">Ch10</span></div>
+            <div class="sidebar-link" onclick="goTo('ch10','exportations-nettes')">Exportations nettes (NX) <span class="ch-badge">Ch10</span></div>
+            <div class="sidebar-link" onclick="goTo('ch10','courbe-j')">Courbe en J <span class="ch-badge">Ch10</span></div>
+            <div class="sidebar-link" onclick="goTo('ch10','courbes-zz')">Courbes ZZ, DD, AA <span class="ch-badge">Ch10</span></div>
+            <div class="sidebar-link" onclick="goTo('ch10','epargne-balance-comm')">Épargne &amp; balance comm. <span class="ch-badge">Ch10</span></div>
+        </div>
+
+        <div class="sidebar-group">
+            <div class="sidebar-group-title">Mundell-Fleming</div>
+            <div class="sidebar-link" onclick="goTo('ch11','is-ouverte')">IS ouverte <span class="ch-badge">Ch11</span></div>
+            <div class="sidebar-link" onclick="goTo('ch11','cpti')">CPTI <span class="ch-badge">Ch11</span></div>
+            <div class="sidebar-link" onclick="goTo('ch11','islm-cpti')">Modèle IS-LM-CPTI <span class="ch-badge">Ch11</span></div>
+            <div class="sidebar-link" onclick="goTo('ch11','politiques-changes-flexibles')">Politiques changes flexibles <span class="ch-badge">Ch11</span></div>
+            <div class="sidebar-link" onclick="goTo('ch11','changes-fixes')">Changes fixes <span class="ch-badge">Ch11</span></div>
+        </div>
+
     </aside>
 
     <!-- ═══════════ MAIN ═══════════ -->
@@ -458,6 +484,9 @@
             <button class="tab-button" onclick="switchTab('ch6',this)">Chapitre 6</button>
             <button class="tab-button" onclick="switchTab('ch7',this)">Chapitre 7</button>
             <button class="tab-button" onclick="switchTab('ch8',this)">Chapitre 8</button>
+            <button class="tab-button" onclick="switchTab('ch9',this)">Chapitre 9</button>
+            <button class="tab-button" onclick="switchTab('ch10',this)">Chapitre 10</button>
+            <button class="tab-button" onclick="switchTab('ch11',this)">Chapitre 11</button>
         </div>
 
         <div class="content">
@@ -1508,6 +1537,385 @@
 
             </div><!-- /ch8 -->
 
+            <!-- ════════════════════════════════
+                 CHAPITRE 9
+            ════════════════════════════════ -->
+            <div id="ch9" class="chapter">
+
+                <div class="formula-section" id="taux-change-nominal" data-title="Taux de change nominal E appréciation dépréciation cotation incertain certain dévaluation réévaluation" data-chapter="Chapitre 9" data-concept="Taux de change">
+                    <span class="concept-tag">Taux de change</span>
+                    <h2>Taux de change nominal (E)</h2>
+                    <div class="description">Prix d'une monnaie exprimé en unités d'une autre monnaie.</div>
+                    <h3>Conventions de cotation</h3>
+                    <table>
+                        <thead><tr><th>Convention</th><th>Exemple (CHF/EUR)</th><th>Hausse de E signifie</th></tr></thead>
+                        <tbody>
+                            <tr><td><strong>À l'incertain</strong> <em>(utilisée dans ce cours)</em></td><td>1 EUR = 0.92 CHF → E = 0.92</td><td>Appréciation monnaie étrangère / dépréciation nationale</td></tr>
+                            <tr><td><strong>Au certain</strong></td><td>1 CHF = 1.09 EUR</td><td>Inverse</td></tr>
+                        </tbody>
+                    </table>
+                    <h3>Terminologie critique</h3>
+                    <table>
+                        <thead><tr><th>Terme</th><th>Régime de change</th></tr></thead>
+                        <tbody>
+                            <tr><td><strong>Dépréciation / Appréciation</strong></td><td>Changes <strong>flottants</strong> (mouvement de marché)</td></tr>
+                            <tr><td><strong>Dévaluation / Réévaluation</strong></td><td>Changes <strong>fixes</strong> (décision de politique économique)</td></tr>
+                        </tbody>
+                    </table>
+                    <blockquote>Tendance historique : le CHF s'est apprécié vis-à-vis de l'EUR et du USD sur le long terme.</blockquote>
+                </div>
+
+                <div class="formula-section" id="taux-change-reel" data-title="Taux de change réel epsilon ε EP* P compétitivité panier effectif multilatéral" data-chapter="Chapitre 9" data-concept="Taux de change">
+                    <span class="concept-tag">Taux de change</span>
+                    <h2>Taux de change réel (ε)</h2>
+                    <div class="formula-block">$$\varepsilon = \frac{E \cdot P^*}{P}$$</div>
+                    <table>
+                        <thead><tr><th>Variable</th><th>Signification</th></tr></thead>
+                        <tbody>
+                            <tr><td>$E$</td><td>Taux de change nominal (monnaie étrangère en nationale)</td></tr>
+                            <tr><td>$P^*$</td><td>Niveau des prix étrangers</td></tr>
+                            <tr><td>$P$</td><td>Niveau des prix nationaux</td></tr>
+                            <tr><td>$\varepsilon$</td><td>Coût d'un panier étranger exprimé en paniers nationaux</td></tr>
+                        </tbody>
+                    </table>
+                    <h3>Interprétation</h3>
+                    <table>
+                        <thead><tr><th>Valeur de ε</th><th>Signification</th></tr></thead>
+                        <tbody>
+                            <tr><td>$\varepsilon < 1$</td><td>Biens étrangers <strong>moins chers</strong> → plus compétitifs</td></tr>
+                            <tr><td>Baisse de ε</td><td><strong>Appréciation réelle</strong> (biens nationaux relativement plus chers)</td></tr>
+                            <tr><td>Hausse de ε</td><td><strong>Dépréciation réelle</strong> (biens nationaux moins chers)</td></tr>
+                        </tbody>
+                    </table>
+                    <h3>Exemple numérique (Suisse / France, 2024)</h3>
+                    <div class="formula-block">$$\varepsilon = \frac{0.95 \times 58.48}{62.20} = 0.89$$</div>
+                    <div class="description">1 panier français coûte 0.89 panier suisse → les biens français sont <strong>moins chers</strong> que les biens suisses.</div>
+                    <h3>Taux de change réel effectif (multilatéral)</h3>
+                    <div class="formula-block">$$\varepsilon_{\text{effectif}} = f(\varepsilon_{F/CH},\; \varepsilon_{D/CH},\; \varepsilon_{USA/CH},\; \ldots)$$</div>
+                    <div class="description">Indice moyen pondéré des taux de change réels bilatéraux → mesure l'évolution globale de la <strong>compétitivité-prix</strong> d'un pays vis-à-vis du reste du monde.</div>
+                </div>
+
+                <div class="formula-section" id="parite-taux-interet" data-title="Parité des taux d'intérêt PTI CPTI arbitrage rendement anticipé taux change E i étoile investisseur" data-chapter="Chapitre 9" data-concept="Taux de change">
+                    <span class="concept-tag">Taux de change</span>
+                    <h2>Condition de parité des taux d'intérêt (PTI)</h2>
+                    <div class="description">Condition d'équilibre issue de l'arbitrage des investisseurs entre actifs nationaux et étrangers. L'ajustement est <strong>instantané</strong> sur les marchés financiers.</div>
+                    <h3>Forme exacte</h3>
+                    <div class="formula-block">$$(1 + i_t) = \frac{E_{t+1}^e}{E_t} \cdot (1 + i_t^*)$$</div>
+                    <h3>Forme approximée (à retenir)</h3>
+                    <div class="formula-block">$$\boxed{i_t \approx i_t^* + \frac{E_{t+1}^e - E_t}{E_t}}$$</div>
+                    <blockquote>Lecture : taux national = taux étranger + taux d'appréciation <strong>anticipé</strong> de la monnaie étrangère.</blockquote>
+                    <h3>Relation inverse — taux de change courant</h3>
+                    <div class="formula-block">$$E_t = \frac{E_{t+1}^e}{1 + i_t - i_t^*}$$</div>
+                    <table>
+                        <thead><tr><th>Choc</th><th>Effet sur $E_t$</th><th>Intuition</th></tr></thead>
+                        <tbody>
+                            <tr><td>$i_t \uparrow$</td><td>$E_t \downarrow$</td><td>Obligations nationales plus attractives → afflux de capitaux → appréciation</td></tr>
+                            <tr><td>$E_{t+1}^e \uparrow$</td><td>$E_t \uparrow$</td><td>Anticipation de dépréciation → dépréciation immédiate</td></tr>
+                        </tbody>
+                    </table>
+                    <blockquote>La PTI ignore les coûts de transaction et le risque. Elle reste une bonne approximation pour les grands marchés financiers.</blockquote>
+                </div>
+
+                <div class="formula-section" id="balance-paiements" data-title="Balance des paiements BP compte courant capital financier structure double entrée investissements directs portefeuille réserves" data-chapter="Chapitre 9" data-concept="Balance des paiements">
+                    <span class="concept-tag">Balance des paiements</span>
+                    <h2>Balance des paiements (BP)</h2>
+                    <div class="description">Résumé de toutes les transactions entre résidents et non-résidents, construit par <strong>comptabilité en partie double</strong>.</div>
+                    <div class="formula-block">$$\underbrace{\text{Compte courant}}_{A} + \underbrace{\text{Compte de capital}}_{B} + \text{Écart statistique} = \underbrace{\text{Compte financier}}_{C}$$</div>
+                    <h3>A. Compte courant — flux de revenus</h3>
+                    <table>
+                        <thead><tr><th>Rubrique</th><th>Contenu</th><th>Exemple</th></tr></thead>
+                        <tbody>
+                            <tr><td><strong>Biens</strong></td><td>Exportations / Importations</td><td>Montres exportées</td></tr>
+                            <tr><td><strong>Services</strong></td><td>Tourisme, finance, transport</td><td>Touriste étranger en Suisse</td></tr>
+                            <tr><td><strong>Revenus primaires</strong></td><td>Salaires, dividendes versés à l'étranger</td><td>Salaire d'un frontalier</td></tr>
+                            <tr><td><strong>Revenus secondaires</strong></td><td>Transferts sans contrepartie</td><td>Aide au développement, envois de fonds</td></tr>
+                        </tbody>
+                    </table>
+                    <h3>C. Compte financier — variations de stocks d'actifs</h3>
+                    <div class="formula-block">$$\text{Solde} = \text{Acquisition nette d'actifs étrangers} - \text{Accroissement net des passifs}$$</div>
+                    <table>
+                        <thead><tr><th>Rubrique</th><th>Définition</th></tr></thead>
+                        <tbody>
+                            <tr><td><strong>Investissements directs</strong></td><td>Achat d'entreprises pour <strong>prendre le contrôle</strong></td></tr>
+                            <tr><td><strong>Investissements de portefeuille</strong></td><td>Achat d'actions/obligations sans chercher le contrôle</td></tr>
+                            <tr><td><strong>Autres investissements</strong></td><td>Prêts, dépôts, devises</td></tr>
+                            <tr><td><strong>Réserves monétaires</strong></td><td>Réserves de la <strong>Banque centrale</strong> uniquement</td></tr>
+                        </tbody>
+                    </table>
+                    <blockquote><strong>Solde courant &gt; 0</strong> → le pays s'est enrichi vis-à-vis de l'étranger (prêteur net).<br>
+                    <strong>⚠️ Attention :</strong> en langage journalistique, "solde de la BP" désigne souvent abusivement le seul <strong>compte courant</strong>.</blockquote>
+                </div>
+
+            </div><!-- /ch9 -->
+
+            <!-- ════════════════════════════════
+                 CHAPITRE 10
+            ════════════════════════════════ -->
+            <div id="ch10" class="chapter">
+
+                <div class="formula-section" id="demande-biens-nationaux" data-title="Demande biens nationaux Z économie ouverte C I G X M epsilon importations exportations" data-chapter="Chapitre 10" data-concept="Économie ouverte">
+                    <span class="concept-tag">Économie ouverte</span>
+                    <h2>Demande de biens nationaux (Z)</h2>
+                    <div class="formula-block">$$Z = C(Y-T) + I(Y,i) + G + X(Y^*, \varepsilon) - \varepsilon \cdot M(Y, \varepsilon)$$</div>
+                    <blockquote>$\varepsilon \cdot M$ = valeur des importations exprimée en biens nationaux. On convertit les quantités importées via leur prix relatif $\varepsilon = EP^*/P$.</blockquote>
+                    <h3>Déterminants de X et M</h3>
+                    <table>
+                        <thead><tr><th>Variable</th><th>Déterminants</th><th>Relation</th></tr></thead>
+                        <tbody>
+                            <tr><td><strong>X</strong> (exportations)</td><td>$Y^*$ revenu étranger, $\varepsilon$ compétitivité</td><td>$Y^* \uparrow \to X \uparrow$ ; $\varepsilon \uparrow \to X \uparrow$</td></tr>
+                            <tr><td><strong>M</strong> (importations)</td><td>$Y$ revenu national, $\varepsilon$ prix relatif</td><td>$Y \uparrow \to M \uparrow$ ; $\varepsilon \uparrow \to M \downarrow$</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="formula-block">$$X = X(Y^*, \varepsilon)\;(+,+) \qquad M = M(Y, \varepsilon)\;(+,-)$$</div>
+                </div>
+
+                <div class="formula-section" id="exportations-nettes" data-title="Exportations nettes NX balance commerciale Marshall-Lerner condition propension marginale importer pmm multiplicateur" data-chapter="Chapitre 10" data-concept="Économie ouverte">
+                    <span class="concept-tag">Économie ouverte</span>
+                    <h2>Exportations nettes (NX) et Condition de Marshall-Lerner</h2>
+                    <div class="formula-block">$$NX = X(Y^*, \varepsilon) - \varepsilon \cdot M(Y, \varepsilon)$$</div>
+                    <div class="formula-block">$$NX = NX(Y,\; Y^*,\; \varepsilon) \quad \text{signes : }(-,\;+,\;+)$$</div>
+                    <h3>Effets sur NX</h3>
+                    <table>
+                        <thead><tr><th>Choc</th><th>Effet sur NX</th></tr></thead>
+                        <tbody>
+                            <tr><td>$Y \uparrow$</td><td>$M \uparrow \to NX \downarrow$</td></tr>
+                            <tr><td>$Y^* \uparrow$</td><td>$X \uparrow \to NX \uparrow$</td></tr>
+                            <tr><td>$\varepsilon \uparrow$ (dépréciation réelle)</td><td>$X \uparrow$, $M \downarrow \to NX \uparrow$ <em>si Marshall-Lerner vérifiée</em></td></tr>
+                        </tbody>
+                    </table>
+                    <h3>Condition de Marshall-Lerner</h3>
+                    <div class="description">L'effet net d'une dépréciation réelle ($\varepsilon \uparrow$) sur NX est <strong>positif</strong> si la réaction des <em>quantités</em> ($X \uparrow$ et $M \downarrow$) est suffisamment forte pour compenser le renchérissement des importations existantes. Empiriquement vérifiée à <strong>moyen-long terme</strong>.</div>
+                    <h3>Propension marginale à importer (pmm)</h3>
+                    <div class="formula-block">$$pmm = \frac{\Delta M}{\Delta Y} \qquad \text{Pente de NX} = -\varepsilon \cdot pmm$$</div>
+                    <div class="formula-block">$$\text{Pente de ZZ} = pmc - \varepsilon \cdot pmm$$</div>
+                    <table>
+                        <thead><tr><th>$pmm$</th><th>Pente de ZZ</th><th>Multiplicateur de G</th></tr></thead>
+                        <tbody>
+                            <tr><td>Proche de 0</td><td>Élevée (≈ éco. fermée)</td><td>Fort</td></tr>
+                            <tr><td>Élevée</td><td>Faible</td><td>Faible (fuite vers importations)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="formula-section" id="courbe-j" data-title="Courbe en J dépréciation court terme moyen terme NX trajectoire temporelle" data-chapter="Chapitre 10" data-concept="Économie ouverte">
+                    <span class="concept-tag">Économie ouverte</span>
+                    <h2>La courbe en J</h2>
+                    <div class="description">Réponse temporelle de NX à une dépréciation réelle ($\varepsilon \uparrow$) :</div>
+                    <table>
+                        <thead><tr><th>Horizon</th><th>Quantités</th><th>Effet sur NX</th></tr></thead>
+                        <tbody>
+                            <tr><td><strong>Court terme</strong></td><td>Inchangées ($\bar{X}$, $\bar{M}$)</td><td>$\varepsilon \uparrow \to \varepsilon \cdot M \uparrow \to NX$ se <strong>détériore</strong></td></tr>
+                            <tr><td><strong>Moyen terme</strong></td><td>$X \uparrow$ et $M \downarrow$</td><td>$NX$ <strong>s'améliore</strong></td></tr>
+                        </tbody>
+                    </table>
+                    <blockquote>La trajectoire de NX dans le temps dessine un <strong>J</strong> : détérioration immédiate, puis amélioration progressive.<br>
+                    Exemple empirique : Royaume-Uni — dépréciation GBP (2007–2009) → NX ↑ avec un décalage d'1 à 2 ans.</blockquote>
+                </div>
+
+                <div class="formula-section" id="courbes-zz" data-title="Courbes ZZ DD AA demande intérieure exportations nettes équilibre pente pmm Y bc" data-chapter="Chapitre 10" data-concept="Économie ouverte">
+                    <span class="concept-tag">Économie ouverte</span>
+                    <h2>Courbes DD, AA et ZZ</h2>
+                    <table>
+                        <thead><tr><th>Courbe</th><th>Définition</th></tr></thead>
+                        <tbody>
+                            <tr><td><strong>DD</strong></td><td>$C(Y-T) + I(Y,i) + G$ — demande intérieure totale</td></tr>
+                            <tr><td><strong>AA</strong></td><td>$C(Y-T) + I(Y,i) + G - \varepsilon \cdot M(Y,\varepsilon)$ — demande intérieure nette d'importations</td></tr>
+                            <tr><td><strong>ZZ</strong></td><td>$C(Y-T) + I(Y,i) + G + X(Y^*,\varepsilon) - \varepsilon \cdot M$ — demande totale de biens nationaux</td></tr>
+                        </tbody>
+                    </table>
+                    <ul>
+                        <li>ZZ est <strong>parallèle à AA</strong>, décalée vers le haut de X (exogène par rapport à Y)</li>
+                        <li>ZZ est <strong>plus plate que DD</strong> : une hausse de Y génère des importations qui «fuient» à l'étranger</li>
+                        <li>Au point $Y_{bc}$ : ZZ croise DD → NX = 0 (balance commerciale à l'équilibre)</li>
+                    </ul>
+                    <h3>Équilibre</h3>
+                    <div class="formula-block">$$Y = C(Y-T) + I(Y,i) + G + NX(Y,\; Y^*,\; \varepsilon)$$</div>
+                    <blockquote>L'équilibre n'implique pas NX = 0 : un déficit ou un excédent commercial est possible à l'équilibre.</blockquote>
+                </div>
+
+                <div class="formula-section" id="effets-politiques-ch10" data-title="Effets politiques hausse G Y* dépréciation réelle multiplicateur ouverture choc demande jumeaux" data-chapter="Chapitre 10" data-concept="Économie ouverte">
+                    <span class="concept-tag">Économie ouverte</span>
+                    <h2>Effets des politiques et chocs</h2>
+                    <table>
+                        <thead><tr><th>Choc</th><th>Effet sur Y</th><th>Effet sur NX</th><th>Remarque</th></tr></thead>
+                        <tbody>
+                            <tr><td>$\Delta G > 0$ (relance budgétaire)</td><td>$\uparrow$ (mais moins qu'en éco. fermée)</td><td>$\downarrow$ ($M \uparrow$)</td><td>Fuite vers les importations ($pmm$)</td></tr>
+                            <tr><td>$Y^* \uparrow$ (demande étrangère)</td><td>$\uparrow$</td><td>$\uparrow$</td><td>$X \uparrow$ compense la hausse de $M$</td></tr>
+                            <tr><td>$\varepsilon \uparrow$ (dépréciation réelle)</td><td>$\uparrow$</td><td>$\uparrow$</td><td>Renchérit les imports → perte de bien-être</td></tr>
+                        </tbody>
+                    </table>
+                    <h3>Réduire le déficit sans modifier Y</h3>
+                    <div class="description">Combiner deux instruments aux effets opposés sur Y :</div>
+                    <table>
+                        <thead><tr><th>Instrument</th><th>Effet sur Y</th><th>Effet sur NX</th></tr></thead>
+                        <tbody>
+                            <tr><td>Dépréciation ($\varepsilon \uparrow$)</td><td>$\uparrow$</td><td>$\uparrow$</td></tr>
+                            <tr><td>Restriction budgétaire ($G \downarrow$)</td><td>$\downarrow$</td><td>$\uparrow$ (via $M \downarrow$)</td></tr>
+                        </tbody>
+                    </table>
+                    <blockquote>Les effets sur Y se compensent → Y inchangé. NX s'améliore grâce aux deux instruments.</blockquote>
+                    <h3>Dilemme du prisonnier (coordination internationale)</h3>
+                    <div class="description">Chaque pays préfère que l'étranger relance (il bénéficie de $Y^* \uparrow$ sans supporter de déficit commercial). Si tous attendent → personne ne relance → récession prolongée. Solution : <strong>coordination des politiques de relance simultanées</strong>.</div>
+                </div>
+
+                <div class="formula-section" id="epargne-balance-comm" data-title="Épargne investissement balance commerciale NX identité comptable SP T G I déficits jumeaux twin deficits" data-chapter="Chapitre 10" data-concept="Économie ouverte">
+                    <span class="concept-tag">Économie ouverte</span>
+                    <h2>Épargne, investissement et balance commerciale</h2>
+                    <h3>Identité comptable fondamentale</h3>
+                    <div class="formula-block">$$NX = S_P + (T - G) - I$$</div>
+                    <blockquote>C'est une identité comptable, <strong>pas une relation causale</strong>.<br>
+                    $S_P$ = épargne privée, $(T-G)$ = épargne publique, $I$ = investissement.</blockquote>
+                    <h3>Implications</h3>
+                    <table>
+                        <thead><tr><th>Situation</th><th>Interprétation</th></tr></thead>
+                        <tbody>
+                            <tr><td>NX &gt; 0 (surplus)</td><td>Épargne nationale &gt; Investissement → pays <strong>prêteur net</strong></td></tr>
+                            <tr><td>NX &lt; 0 (déficit)</td><td>Investissement &gt; Épargne nationale → pays <strong>emprunteur net</strong></td></tr>
+                            <tr><td>$I \uparrow$ sans hausse de S</td><td>NX se détériore (financement étranger)</td></tr>
+                            <tr><td>Déficit budgétaire ($T - G < 0$)</td><td>Financé par $S_P \uparrow$, $I \downarrow$, ou $NX \downarrow$ («<strong>déficits jumeaux</strong>»)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div><!-- /ch10 -->
+
+            <!-- ════════════════════════════════
+                 CHAPITRE 11
+            ════════════════════════════════ -->
+            <div id="ch11" class="chapter">
+
+                <div class="formula-section" id="is-ouverte" data-title="IS ouverte économie ouverte marché des biens taux de change NX Y E double effet IS plus pentue" data-chapter="Chapitre 11" data-concept="Mundell-Fleming">
+                    <span class="concept-tag">Mundell-Fleming</span>
+                    <h2>IS en économie ouverte</h2>
+                    <div class="formula-block">$$Y = C(Y-T) + I(Y,i) + G + NX\!\left(Y,\; Y^*,\; \frac{E^e}{1+i-i^*}\right)$$</div>
+                    <div class="description">Deux variables supplémentaires par rapport à l'économie fermée :
+                        <ul>
+                            <li>$Y^*$ : revenu étranger → détermine les exportations</li>
+                            <li>$E$ : taux de change nominal, relié à $\varepsilon = EP^*/P$ (à CT, $P$ et $P^*$ fixes)</li>
+                        </ul>
+                    </div>
+                    <blockquote>À court terme : seul <strong>E</strong> peut modifier $\varepsilon$. Une dépréciation ($\uparrow E$) → $\uparrow NX$ → $\uparrow Y$.</blockquote>
+                    <h3>Double effet de i sur Y — spécificité de l'économie ouverte</h3>
+                    <table>
+                        <thead><tr><th>Canal</th><th>Mécanisme</th></tr></thead>
+                        <tbody>
+                            <tr><td><strong>Direct</strong> (comme éco. fermée)</td><td>$\uparrow i \to \downarrow I \to \downarrow Y$</td></tr>
+                            <tr><td><strong>Indirect via CPTI</strong> (spécifique éco. ouverte)</td><td>$\uparrow i \to \downarrow E \;(\text{appréciation}) \to \downarrow NX \to \downarrow Y$</td></tr>
+                        </tbody>
+                    </table>
+                    <blockquote>La courbe IS est donc <strong>plus pentue</strong> en économie ouverte qu'en économie fermée.</blockquote>
+                </div>
+
+                <div class="formula-section" id="cpti" data-title="CPTI parité taux intérêt condition taux change E i i étoile anticipé appréciation dépréciation" data-chapter="Chapitre 11" data-concept="Mundell-Fleming">
+                    <span class="concept-tag">Mundell-Fleming</span>
+                    <h2>Condition de parité des taux d'intérêt (CPTI)</h2>
+                    <div class="formula-block">$$i = i^* + \frac{E^e - E}{E} \qquad \Longleftrightarrow \qquad E = \frac{E^e}{1 + i - i^*}$$</div>
+                    <table>
+                        <thead><tr><th>Choc</th><th>Effet sur E</th><th>Interprétation</th></tr></thead>
+                        <tbody>
+                            <tr><td>$i \uparrow$</td><td>$E \downarrow$</td><td>Obligations nationales plus attractives → afflux de capitaux → appréciation</td></tr>
+                            <tr><td>$i = i^*$</td><td>$E = E^e$</td><td>Point d'ancrage : pas d'appréciation anticipée</td></tr>
+                            <tr><td>$E^e \uparrow$</td><td>$E \uparrow$</td><td>Anticipation de dépréciation → dépréciation immédiate</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="formula-section" id="islm-cpti" data-title="Modèle IS LM CPTI Mundell Fleming changes flexibles trois blocs simultanés production taux change" data-chapter="Chapitre 11" data-concept="Mundell-Fleming">
+                    <span class="concept-tag">Mundell-Fleming</span>
+                    <h2>Modèle IS-LM-CPTI (Mundell-Fleming)</h2>
+                    <div class="description">Trois blocs simultanés :</div>
+                    <table>
+                        <thead><tr><th>Bloc</th><th>Équation</th><th>Rôle</th></tr></thead>
+                        <tbody>
+                            <tr><td><strong>IS</strong></td><td>$Y = C(Y-T) + I(Y,i) + G + NX\!\left(Y, Y^*, \tfrac{E^e}{1+i-i^*}\right)$</td><td>Équilibre marché des biens</td></tr>
+                            <tr><td><strong>LM</strong></td><td>$i = \bar{i}$</td><td>La BC fixe le taux directeur</td></tr>
+                            <tr><td><strong>CPTI</strong></td><td>$E = \tfrac{E^e}{1+i-i^*}$</td><td>Détermine le taux de change</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="formula-section" id="politiques-changes-flexibles" data-title="Politiques changes flexibles monétaire budgétaire déficits jumeaux expansion restriction Reagan policy-mix" data-chapter="Chapitre 11" data-concept="Mundell-Fleming">
+                    <span class="concept-tag">Mundell-Fleming</span>
+                    <h2>Politiques macroéconomiques en changes flexibles</h2>
+                    <h3>Politique monétaire restrictive (↑i)</h3>
+                    <div class="formula-block">$$\uparrow i \;\longrightarrow\; \downarrow I \;\text{ et }\; \downarrow NX \;(\text{appréciation}) \;\longrightarrow\; \downarrow Y$$</div>
+                    <div class="description">Deux canaux de transmission actifs : effet direct sur $I$ + effet via CPTI sur $NX$.</div>
+                    <h3>Politique budgétaire expansive (↑G), i fixé par BC</h3>
+                    <div class="formula-block">$$\uparrow G \;\longrightarrow\; \uparrow Y \;\longrightarrow\; \uparrow M \;\longrightarrow\; \downarrow NX$$</div>
+                    <blockquote><strong>Déficits jumeaux</strong> : hausse de G → déficit budgétaire + déficit commercial simultanés ($i$ et $E$ inchangés).</blockquote>
+                    <h3>Tableau de synthèse</h3>
+                    <table>
+                        <thead><tr><th>Politique</th><th>Y</th><th>i</th><th>E</th><th>NX</th></tr></thead>
+                        <tbody>
+                            <tr><td>Monétaire expansive ($\bar{i} \downarrow$)</td><td>$\uparrow$</td><td>$\downarrow$</td><td>$\uparrow$ (dépréciation)</td><td>$\uparrow$</td></tr>
+                            <tr><td>Budgétaire expansive ($G \uparrow$)</td><td>$\uparrow$</td><td>$=$</td><td>$=$</td><td>$\downarrow$</td></tr>
+                        </tbody>
+                    </table>
+                    <h3>Cas réel — Policy-mix américain (années 1980)</h3>
+                    <div class="description">Reagan : baisse des impôts sans réduire G → déficit budgétaire. Volcker (Fed) : contraction monétaire sévère contre l'inflation.</div>
+                    <table>
+                        <thead><tr><th>Variable</th><th>Évolution 1980–1984</th></tr></thead>
+                        <tbody>
+                            <tr><td>Taux d'intérêt nominal</td><td>↑ (11,5% → 14% en 1981)</td></tr>
+                            <tr><td>Taux de change réel</td><td>↓ (117 → 77 : forte appréciation)</td></tr>
+                            <tr><td>Solde commercial / PIB</td><td>↓ (−0,5% → −2,7%)</td></tr>
+                            <tr><td>Solde budgétaire</td><td>↓ (−1,8% → −4,5%)</td></tr>
+                        </tbody>
+                    </table>
+                    <blockquote>⟹ <strong>Déficits jumeaux</strong> caractéristiques de ce policy-mix, conformes aux prédictions de Mundell-Fleming.</blockquote>
+                </div>
+
+                <div class="formula-section" id="changes-fixes" data-title="Changes fixes taux change fixe perte autonomie monétaire i étoile BC politique budgétaire efficace SME Bundesbank" data-chapter="Chapitre 11" data-concept="Mundell-Fleming">
+                    <span class="concept-tag">Mundell-Fleming</span>
+                    <h2>Taux de change fixes</h2>
+                    <div class="description">La BC s'engage à maintenir $E = \bar{E}$. Elle dispose de deux instruments : ajuster $i$ via la CPTI (indirect) ou acheter/vendre des devises (direct).</div>
+                    <h3>Conséquence fondamentale (mobilité parfaite des capitaux)</h3>
+                    <div class="formula-block">$$E^e_{t+1} = \bar{E} \quad \Rightarrow \quad i_t = i_t^*$$</div>
+                    <blockquote><strong>La BC perd son autonomie monétaire.</strong> Elle doit aligner son taux d'intérêt sur celui du pays ancre.</blockquote>
+                    <h3>Efficacité des politiques</h3>
+                    <table>
+                        <thead><tr><th>Politique</th><th>Changes flexibles</th><th>Changes fixes</th></tr></thead>
+                        <tbody>
+                            <tr><td>Monétaire</td><td>✅ Efficace</td><td>❌ Inefficace</td></tr>
+                            <tr><td>Budgétaire</td><td>✅ Efficace</td><td>✅ Efficace</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="description"><strong>Pourquoi la politique monétaire est inefficace en changes fixes ?</strong><br>
+                    Toute expansion monétaire ($\downarrow i$) crée une pression à la dépréciation ($\uparrow E > \bar{E}$) → la BC est forcée d'intervenir pour ramener $E$ à $\bar{E}$ → le choc initial est annulé.</div>
+                    <h3>Cas réel — Réunification allemande et SME (1990–1992)</h3>
+                    <ul>
+                        <li>Réunification → expansion budgétaire massive en Allemagne → Bundesbank ↑$i^*$ pour contenir l'inflation</li>
+                        <li>Pays du SME (France, Belgique) contraints d'aligner $i = i^*$ pour maintenir les parités de change</li>
+                        <li>Taux réels français/belges <strong>supérieurs</strong> aux taux allemands → récession importée</li>
+                    </ul>
+                    <blockquote>Pourquoi $i_{France} > i_{Allemagne}$ ? → Anticipation de sortie du SME : les marchés exigeaient une prime de risque sur les obligations françaises.<br>
+                    Illustration du <strong>coût de la perte d'autonomie monétaire</strong> sous changes fixes.</blockquote>
+                </div>
+
+                <div class="formula-section" id="synthese-ch11" data-title="Synthèse Mundell Fleming IS LM CPTI changes flexibles fixes politique monétaire budgétaire résumé" data-chapter="Chapitre 11" data-concept="Synthèse">
+                    <span class="concept-tag">Synthèse</span>
+                    <h2>Synthèse — Mundell-Fleming</h2>
+                    <table>
+                        <thead><tr><th>Mécanisme</th><th>Enchaînement</th></tr></thead>
+                        <tbody>
+                            <tr><td>$\uparrow i$ (monétaire restrictive)</td><td>$\downarrow I$ + $\downarrow E$ (appréciation) + $\downarrow NX$ → $\downarrow Y$</td></tr>
+                            <tr><td>$\uparrow G$ (budgétaire, changes flex.)</td><td>$\uparrow Y \to \uparrow M \to \downarrow NX$ + déficit budgétaire → <strong>déficits jumeaux</strong></td></tr>
+                            <tr><td>Changes fixes ($E = \bar{E}$)</td><td>$i = i^*$ (contrainte) → perte autonomie monétaire → politique budgétaire seule reste efficace</td></tr>
+                        </tbody>
+                    </table>
+                    <h3>Liens avec les autres chapitres</h3>
+                    <table>
+                        <thead><tr><th>Modèle</th><th>Lien avec Chap. 11</th></tr></thead>
+                        <tbody>
+                            <tr><td><strong>IS/LM (Chap. 6)</strong></td><td>IS/LM en économie fermée ; ici étendu par CPTI et NX</td></tr>
+                            <tr><td><strong>PTI (Chap. 9)</strong></td><td>CPTI = PTI intégrée dans le modèle → détermine E endogènement</td></tr>
+                            <tr><td><strong>NX (Chap. 10)</strong></td><td>La courbe ZZ fournit la demande de biens nationaux utilisée dans IS ouverte</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div><!-- /ch11 -->
+
         </div><!-- /content -->
     </div><!-- /main-content -->
 </div><!-- /layout -->
@@ -1580,10 +1988,10 @@
         const container = document.getElementById('search-results-container');
         container.innerHTML = '';
 
-        const chapNames = { ch1:'Chapitre 1', ch2:'Chapitre 2', ch3:'Chapitre 3', ch4:'Chapitre 4', ch5:'Chapitre 5', ch6:'Chapitre 6', ch7:'Chapitre 7', ch8:'Chapitre 8' };
+        const chapNames = { ch1:'Chapitre 1', ch2:'Chapitre 2', ch3:'Chapitre 3', ch4:'Chapitre 4', ch5:'Chapitre 5', ch6:'Chapitre 6', ch7:'Chapitre 7', ch8:'Chapitre 8', ch9:'Chapitre 9', ch10:'Chapitre 10', ch11:'Chapitre 11' };
         let total = 0;
 
-        ['ch1','ch2','ch3','ch4','ch5','ch6','ch7','ch8'].forEach(chId => {
+        ['ch1','ch2','ch3','ch4','ch5','ch6','ch7','ch8','ch9','ch10','ch11'].forEach(chId => {
             const chEl = document.getElementById(chId);
             const matched = [];
             chEl.querySelectorAll('.formula-section').forEach(sec => {
